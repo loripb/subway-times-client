@@ -8,8 +8,10 @@ import { BrowserRouter } from 'react-router-dom'
 import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 
-let rootReducer = combineReducers({
+import userReducer from './Redux/userReducer'
 
+let rootReducer = combineReducers({
+  user: userReducer
 })
 
 let storeObject = createStore(
@@ -20,9 +22,11 @@ let storeObject = createStore(
 
 ReactDOM.render(
   <Provider store={ storeObject }>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <BrowserRouter>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </BrowserRouter>
   </Provider>,
   document.getElementById('root')
 );

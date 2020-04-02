@@ -19,7 +19,7 @@ class FormContainer extends Component {
 
   handleChange = (e) => {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.placeholder]: e.target.value
     })
   }
 
@@ -34,13 +34,13 @@ class FormContainer extends Component {
             </Header>
             <Form size='large' onSubmit={ this.handleSubmit }>
               <Segment stacked>
-                <Form.Input onChange={ this.handleChange }fluid icon='user' iconPosition='left' placeholder='Username' />
+                <Form.Input onChange={ this.handleChange }fluid icon='user' iconPosition='left' placeholder='username' />
                 <Form.Input
                   fluid
                   onChange={ this.handleChange }
                   icon='lock'
                   iconPosition='left'
-                  placeholder='Password'
+                  placeholder='password'
                   type='password'
                 />
 

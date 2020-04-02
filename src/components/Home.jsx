@@ -1,5 +1,9 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
+import {Switch, Route} from 'react-router-dom';
+import {NavLink} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {logOut} from '../Redux/actions'
 import {
   Button,
   Container,
@@ -106,7 +110,7 @@ class DesktopContainer extends Component {
                 <Menu.Item as='a'>Careers</Menu.Item>
                 <Menu.Item position='right'>
                   <Button as='a' inverted={!fixed}>
-                    Log in
+                    <NavLink to="/login">Login</NavLink>
                   </Button>
                   <Button as='a' inverted={!fixed} primary={fixed} style={{ marginLeft: '0.5em' }}>
                     Sign Up
