@@ -4,3 +4,16 @@ export const setUserInformation = (responseFromFetch) => {
     payload: responseFromFetch
   }
 }
+
+export const setAlllines = (linesArr) => {
+  return {
+    type: "SET_ALL_LINES",
+    payload: linesArr
+  }
+}
+
+export const logOut = () => {
+  return {
+    type: "LOG_OUT"
+  }
+}

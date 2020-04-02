@@ -3,10 +3,11 @@ import logo from './logo.svg';
 import './App.css';
 import Form from './components/Form'
 import DesktopContainer from './components/Home'
+import LinesContainer from './components/LinesContainer'
 import { Switch, Route } from 'react-router-dom';
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { setUserInformation } from './Redux/actions'
+import { setAllLines, setUserInformation } from './Redux/actions'
 
 
 class App extends React.Component {
@@ -20,27 +21,26 @@ class App extends React.Component {
       })
       .then(r => r.json())
       .then((resp) => {
-        console.log(resp)
-        // this.props.setUserInformation(resp)
+        this.props.setUserInformation(resp)
       })
     }
-  //
-  //
-  //
-  //
-  //   fetch("http://localhost:4000/snacks")
-  //   .then(r => r.json())
-  //   .then((snacks) => {
-  //     this.props.setAllSnacks(snacks)
-  //   })
-  //
-  //
+
+
+
+
+    fetch("http://localhost:4000/lines")
+    .then(r => r.json())
+    .then((lines) => {
+      this.props.setAllLines(lines)
+    })
+
+
    }
-  //
-  //
-  //
-  //
-  //
+
+
+
+
+
   handleLoginSubmit = (userInfo) => {
     console.log("Login form has been submitted")
 
@@ -112,7 +112,7 @@ class App extends React.Component {
           <Route path="/login" render={ this.renderForm } />
           <Route path="/signin" render={ this.renderForm } />
           <Route path="/profile" render={ this.renderProfile } />
-          <Route path="/" exact render={() => <DesktopContainer /> } />
+          <Route path="/" exact render={() => <LinesContainer /> } />
           <Route render={ () => <p>Page not Found</p> } />
         </Switch>
       </div>

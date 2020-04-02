@@ -9,9 +9,11 @@ import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 
 import userReducer from './Redux/userReducer'
+import lineReducer from './Redux/lineReducer'
 
 let rootReducer = combineReducers({
-  user: userReducer
+  user: userReducer,
+  lines: lineReducer
 })
 
 let storeObject = createStore(
