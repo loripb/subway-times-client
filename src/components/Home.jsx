@@ -105,9 +105,8 @@ class DesktopContainer extends Component {
                 <Menu.Item as='a' active>
                   Home
                 </Menu.Item>
-                <Menu.Item as='a'>Work</Menu.Item>
-                <Menu.Item as='a'>Company</Menu.Item>
-                <Menu.Item as='a'>Careers</Menu.Item>
+                <Menu.Item>Lines</Menu.Item>
+                <Menu.Item>Starred Stops</Menu.Item>
                 <Menu.Item position='right'>
                   {
                     this.props.token
