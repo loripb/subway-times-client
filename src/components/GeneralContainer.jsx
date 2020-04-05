@@ -1,4 +1,4 @@
-// will switch between lines container and stop container
+// will switch rendering between lines container and stop container
 import React, {Component} from 'react';
 import LinesContainer from './LinesContainer';
 import StopsContainer from './StopsContainer'
@@ -6,18 +6,35 @@ import StopsContainer from './StopsContainer'
 class GeneralContainer extends Component {
 
   state = {
-    renderStops: false
+    renderLines: true
   }
 
-  render(){
-    console.log(this.state.renderStops)
+  handleRenderChange = () => {
+    this.setState({
+      renderLines: !this.state.renderLines
+    })
+  }
+
+  render() {
+    console.log(this.state.renderLines)
     return (
-      {
-        this.state.renderStops ? <StopsContainer/> : <LinesContainer lines={this.props.lines} />
-      }
-
-    )
+      <>
+        {
+          this.state.renderLines
+          ?
+          <LinesContainer
+            lines={ this.props.lines }
+            handleRenderChange={ this.handleRenderChange }
+          />
+          :
+          <StopsContainer
+            handleRenderChange={ this.handleRenderChange }
+          />
+        }
+      </>
+    );
   }
-};
+
+}
 
 export default GeneralContainer;

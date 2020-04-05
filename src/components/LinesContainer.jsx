@@ -8,7 +8,11 @@ const LinesContainer = (props) => {
 
   let renderLines = () => {
     return props.lines.map(lineObj => {
-      return <LineCard line={ lineObj } />
+      return <LineCard
+        line={ lineObj }
+        key={ lineObj.id }
+        handleRenderChange={ props.handleRenderChange }
+      />
     })
   }
 
