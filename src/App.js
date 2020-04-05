@@ -12,6 +12,10 @@ import { setAllLines, setUserInformation } from './Redux/actions'
 
 class App extends React.Component {
 
+  state = {
+    lines: []
+  }
+
   componentDidMount() {
     if (localStorage.token) {
       fetch("http://localhost:4000/persist", {
@@ -28,48 +32,52 @@ class App extends React.Component {
 
 
     // will live inside the stop component in a component did mount function
-    fetch("http://localhost:4000/lines/13")
+    // fetch("http://localhost:4000/lines/13")
+    // .then(r => r.json())
+    // .then((line) => {
+    //   // diggs through feed to find the arrays with the arrival times
+    //   let feed = line.feed.filter( obj => Object.keys(obj).includes("trip_update"))
+    //   let includesStopTimeUpdate = feed.filter(obj => Object.keys(obj.trip_update).includes("stop_time_update"))
+    //   let stopTimeUpdateArrays = includesStopTimeUpdate.map(obj => obj.trip_update.stop_time_update)
+    //   let stopTimeArrays = stopTimeUpdateArrays.map(obj => obj.map(obj2 => obj2))
+    //
+    //   let trainObjs = []
+    //
+    //   // adds the objects with train arrival times and stop ids to "state"
+    //   stopTimeArrays.map(obj => {
+    //     obj.map(obj2 => {
+    //       trainObjs.push(obj2)
+    //     })
+    //   })
+    //
+    //   let arrivalTimes = trainObjs.filter(obj => obj.stop_id.includes("726N"))
+    //   let trainArrivalsInMinutes = arrivalTimes.map(obj => {
+    //     let myDate = new Date( parseInt(obj.arrival.time) *1000);
+    //     let today = new Date
+    //
+    //
+    //     // checks for trains coming in the next hour
+    //     // if the train arrival minus the time now is negative add 60 mins
+    //     // return myDate.getMinutes() - today.getMinutes()
+    //     if (Math.sign(myDate.getMinutes() - today.getMinutes()) === -1) {
+    //       return (myDate.getMinutes() - today.getMinutes()) + 60
+    //     } else {
+    //       return myDate.getMinutes() - today.getMinutes()
+    //     }
+    //   })
+    //
+    //   // console.log(trainArrivalsInMinutes);
+    // })
+
+    // Fetch all subway lines
+    fetch("http://localhost:4000/lines")
     .then(r => r.json())
-    .then((line) => {
-      // diggs through feed to find the arrays with the arrival times
-      let feed = line.feed.filter( obj => Object.keys(obj).includes("trip_update"))
-      let includesStopTimeUpdate = feed.filter(obj => Object.keys(obj.trip_update).includes("stop_time_update"))
-      let stopTimeUpdateArrays = includesStopTimeUpdate.map(obj => obj.trip_update.stop_time_update)
-      let stopTimeArrays = stopTimeUpdateArrays.map(obj => obj.map(obj2 => obj2))
-
-      let trainObjs = []
-
-      // adds the objects with train arrival times and stop ids to "state"
-      stopTimeArrays.map(obj => {
-        obj.map(obj2 => {
-          trainObjs.push(obj2)
-        })
+    .then(data => {
+      let lines = data.data.map(obj => obj.attributes)
+      this.setState({
+        lines: lines
       })
-
-      let arrivalTimes = trainObjs.filter(obj => obj.stop_id.includes("726N"))
-      let trainArrivalsInMinutes = arrivalTimes.map(obj => {
-        let myDate = new Date( parseInt(obj.arrival.time) *1000);
-        let today = new Date
-
-
-        // checks for trains coming in the next hour
-        // if the train arrival minus the time now is negative add 60 mins
-        // return myDate.getMinutes() - today.getMinutes()
-        if (Math.sign(myDate.getMinutes() - today.getMinutes()) === -1) {
-          return (myDate.getMinutes() - today.getMinutes()) + 60
-        } else {
-          return myDate.getMinutes() - today.getMinutes()
-        }
-      })
-
-      console.log(trainArrivalsInMinutes);
     })
-
-
-   }
-
-
-  stopTimeLookUp = (line) => {
 
   }
 
@@ -145,7 +153,7 @@ class App extends React.Component {
           <Route path="/login" render={ this.renderForm } />
           <Route path="/signin" render={ this.renderForm } />
           <Route path="/profile" render={ this.renderProfile } />
-          <Route path="/" exact render={() => <Home /> } />
+          <Route path="/" exact render={() => <Home lines={ this.state.lines } /> } />
           <Route render={ () => <p>Page not Found</p> } />
         </Switch>
       </div>
