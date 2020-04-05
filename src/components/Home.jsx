@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import LinesContainer from './LinesContainer'
+import GeneralContainer from './GeneralContainer'
 import {Switch, Route} from 'react-router-dom';
 import {NavLink} from 'react-router-dom'
 import {connect} from 'react-redux'
@@ -30,7 +30,7 @@ class Home extends Component {
     let panes = [
       { menuItem: 'Home', render: () => <Tab.Pane>Tab 1 Content</Tab.Pane> },
       { menuItem: 'Subway Lines', render: () => <Tab.Pane>
-        <LinesContainer lines={ this.props.lines } />
+        <GeneralContainer lines={ this.props.lines } />
       </Tab.Pane> },
       { menuItem: 'Starred Stops', render: () => <Tab.Pane>Tab 3 Content</Tab.Pane> },
     ]

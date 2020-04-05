@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import LineCard from './LineCard'
+import StopsContainer from './StopsContainer'
 import { List } from 'semantic-ui-react'
 
 const LinesContainer = (props) => {
