@@ -1,23 +1,35 @@
-import React from 'react';
-import {connect} from 'react-redux'
+import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import StopCard from './StopCard'
 import { List } from 'semantic-ui-react'
 
-const StopsContainer = (props) => {
 
-  let renderStops = () => {
-    return props.Stops.map(StopObj => {
-      return <StopCard Stop={ StopObj } key={ StopObj.id } />
+
+class StopsContainer extends Component {
+
+
+
+  renderStops = () => {
+    return this.props.line.relationships.stops.data.map(stopObj => {
+      return <StopCard
+                key={ stopObj.id }
+                line={ this.props.line.attributes }
+                stop={ stopObj }
+              />
     })
   }
 
-  return(
-    <div className="stop_container">
-      <List celled>
-        { renderStops() }
-      </List>
-    </div>
-  )
+  render() {
+    return (
+      <div className="stop_container">
+        <h3>{ this.props.line.attributes.name } Train Stations</h3>
+        <List celled>
+          { this.renderStops() }
+        </List>
+      </div>
+    );
+  }
+
 }
 
 export default StopsContainer;

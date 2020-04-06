@@ -68,17 +68,6 @@ class App extends React.Component {
     //
     //   // console.log(trainArrivalsInMinutes);
     // })
-
-    // Fetch all subway lines
-    fetch("http://localhost:4000/lines")
-    .then(r => r.json())
-    .then(data => {
-      let lines = data.data.map(obj => obj.attributes)
-      this.setState({
-        lines: lines
-      })
-    })
-
   }
 
 

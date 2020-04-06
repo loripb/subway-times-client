@@ -1,28 +1,50 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import LineCard from './LineCard'
 import StopsContainer from './StopsContainer'
 import { List } from 'semantic-ui-react'
 
-const LinesContainer = (props) => {
+class LinesContainer extends Component {
 
-  let renderLines = () => {
-    return props.lines.map(lineObj => {
+  state = {
+    lines: []
+  }
+
+  componentDidMount(){
+    // Fetch all subway lines
+    fetch("http://localhost:4000/lines")
+    .then(r => r.json())
+    .then(data => {
+      console.log(data)
+      let lines = data.data
+
+      this.setState({
+        lines: lines
+      })
+    })
+  }
+
+  renderLines = () => {
+    return this.state.lines.map(lineObj => {
       return <LineCard
         line={ lineObj }
-        key={ lineObj.id }
-        handleRenderChange={ props.handleRenderChange }
+        key={ lineObj.id}
+        handleRenderChange={ this.props.handleRenderChange }
       />
     })
   }
 
-  return(
-    <div>
-      <List celled>
-        { renderLines() }
-      </List>
-    </div>
-  )
+  render() {
+    console.log(this.state.lines, "log");
+    return (
+      <div>
+        <List celled>
+          { this.renderLines() }
+        </List>
+      </div>
+    );
+  }
+
 }
 
 export default LinesContainer;

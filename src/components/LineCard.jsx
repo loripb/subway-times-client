@@ -1,20 +1,25 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { List, Image } from 'semantic-ui-react'
 
-const LineCard = (props) => {
+class LineCard extends Component {
 
-  let handleClick = () => {
-    props.handleRenderChange()
+
+
+  handleClick = () => {
+    this.props.handleRenderChange(this.props.line)
   }
 
-  return(
-    <List.Item onClick={ handleClick } >
-      <List.Icon name='marker' />
-      <List.Content>
-        <List.Header>{props.line.name}</List.Header>
-      </List.Content>
-    </List.Item>
-  )
-};
+  render() {
+    return (
+      <List.Item onClick={ this.handleClick } >
+        <List.Icon name='marker' />
+        <List.Content>
+          <List.Header>{this.props.line.attributes.name}</List.Header>
+        </List.Content>
+      </List.Item>
+    );
+  }
+
+}
 
 export default LineCard;
