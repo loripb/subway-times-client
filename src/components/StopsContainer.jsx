@@ -32,7 +32,7 @@ class StopsContainer extends Component {
     return (
       <div className="stop_container">
         <h3>{ this.props.line.attributes.name } Train Stations { this.state.direction === "N" ? "To Queens" : "To Manhattan" }</h3>
-        <button class="ui small button" onClick={ this.handleDirectionChange } >Change Direction</button>
+        <button className="ui small button" onClick={ this.handleDirectionChange } >Change Direction</button>
         <List celled>
           { this.renderStops() }
         </List>

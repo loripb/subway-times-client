@@ -28,46 +28,6 @@ class App extends React.Component {
         this.props.setUserInformation(resp)
       })
     }
-
-
-
-    // will live inside the stop component in a component did mount function
-    // fetch("http://localhost:4000/lines/13")
-    // .then(r => r.json())
-    // .then((line) => {
-    //   // diggs through feed to find the arrays with the arrival times
-    //   let feed = line.feed.filter( obj => Object.keys(obj).includes("trip_update"))
-    //   let includesStopTimeUpdate = feed.filter(obj => Object.keys(obj.trip_update).includes("stop_time_update"))
-    //   let stopTimeUpdateArrays = includesStopTimeUpdate.map(obj => obj.trip_update.stop_time_update)
-    //   let stopTimeArrays = stopTimeUpdateArrays.map(obj => obj.map(obj2 => obj2))
-    //
-    //   let trainObjs = []
-    //
-    //   // adds the objects with train arrival times and stop ids to "state"
-    //   stopTimeArrays.map(obj => {
-    //     obj.map(obj2 => {
-    //       trainObjs.push(obj2)
-    //     })
-    //   })
-    //
-    //   let arrivalTimes = trainObjs.filter(obj => obj.stop_id.includes("726N"))
-    //   let trainArrivalsInMinutes = arrivalTimes.map(obj => {
-    //     let myDate = new Date( parseInt(obj.arrival.time) *1000);
-    //     let today = new Date
-    //
-    //
-    //     // checks for trains coming in the next hour
-    //     // if the train arrival minus the time now is negative add 60 mins
-    //     // return myDate.getMinutes() - today.getMinutes()
-    //     if (Math.sign(myDate.getMinutes() - today.getMinutes()) === -1) {
-    //       return (myDate.getMinutes() - today.getMinutes()) + 60
-    //     } else {
-    //       return myDate.getMinutes() - today.getMinutes()
-    //     }
-    //   })
-    //
-    //   // console.log(trainArrivalsInMinutes);
-    // })
   }
 
 
@@ -89,7 +49,7 @@ class App extends React.Component {
       console.log(resp);
       localStorage.token = resp.token
       this.props.setUserInformation(resp)
-      this.props.history.push("/profile")
+      this.props.history.push("/")
     })
 
 
@@ -126,7 +86,7 @@ class App extends React.Component {
     }
     if(routerProps.location.pathname === "/login"){
       return <Form formName="Login Form" handleSubmit={this.handleLoginSubmit}/>
-    } else if (routerProps.location.pathname === "/signin") {
+    } else if (routerProps.location.pathname === "/signup") {
       return <Form formName="Sign in Form" handleSubmit={this.handleRegisterSubmit}/>
     }
   }
@@ -136,11 +96,12 @@ class App extends React.Component {
   // }
 
   render(){
+    console.log(this.props);
     return (
       <div className="App">
         <Switch>
           <Route path="/login" render={ this.renderForm } />
-          <Route path="/signin" render={ this.renderForm } />
+          <Route path="/signup" render={ this.renderForm } />
           <Route path="/profile" render={ this.renderProfile } />
           <Route path="/" exact render={() => <Home lines={ this.state.lines } /> } />
           <Route render={ () => <p>Page not Found</p> } />

@@ -1,5 +1,6 @@
 let initialState = {
   username: "",
+  user_stops: [],
   token: ""
 }
 
@@ -10,6 +11,7 @@ let userReducer = (state = initialState, action) => {
       return {
         ...state,
         username: action.payload.user.username,
+        user_stops: action.payload.user.stops,
         token: action.payload.token
       }
 

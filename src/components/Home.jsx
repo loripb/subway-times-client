@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import GeneralContainer from './GeneralContainer'
+import StarredStopsContainer from './StarredStopsContainer'
+import LogoutModal from './LogoutModal'
 import {Switch, Route} from 'react-router-dom';
 import {NavLink} from 'react-router-dom'
 import {connect} from 'react-redux'
@@ -32,14 +34,22 @@ class Home extends Component {
       { menuItem: 'Subway Lines', render: () => <Tab.Pane>
         <GeneralContainer lines={ this.props.lines } />
       </Tab.Pane> },
-      { menuItem: 'Starred Stops', render: () => <Tab.Pane>Tab 3 Content</Tab.Pane> },
+      { menuItem: 'Starred Stops', render: () => <Tab.Pane>
+        <StarredStopsContainer />
+      </Tab.Pane> },
     ]
     return(
       <>
         <div>
           <Header as='h1'>Subway Times</Header>
         </div>
-
+        <LogoutModal />
+        <NavLink to="/login">
+          <Button size='small' inverted color='blue'>Login</Button>
+        </NavLink>
+        <NavLink to="/signup">
+          <Button size='small' inverted color='blue'>Sign Up</Button>
+        </NavLink>
         <Container>
           <Tab menu={{ fluid: true, vertical: true, tabular: true }} panes={panes} />
         </Container>

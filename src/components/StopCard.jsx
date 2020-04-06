@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { List, Image } from 'semantic-ui-react'
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { List, Icon, Button } from 'semantic-ui-react';
 
 class StopCard extends Component {
 
   state = {
+    foundUser: undefined,
     stopObj: [],
     arrivals: [],
     renderStopInfo: false
@@ -63,26 +66,50 @@ class StopCard extends Component {
     })
   }
 
+  handleStarClick = () => {
+    // fetch all users
+    fetch("http://localhost:4000/users/")
+    .then(r => r.json())
+    // use username to match user obj
+    .then(usersArray => {
+      let user = usersArray.find(userObj => userObj.username === this.props.username.username)
+      // post fetch to starredstop/:id
+      fetch('http://localhost:4000/starred_stops', {
+        method: "POST",
+        headers: {
+          'content-type': 'application/json',
+          'accept': 'application/json'
+        },
+        body: JSON.stringify({
+          user_id: user.id,
+          stop_id: this.state.stopObj.id
+        })
+      })
+      .then(r => r.json())
+      .then(data => console.log(data))
+    })
+  }
+
   render(){
     return(
       <>
         {
           this.state.renderStopInfo
           ?
-          <List.Item onClick={ this.handleClick }>
-            <List.Icon name='marker' />
+          <List.Item>
+            <Icon name='star' onClick={ this.handleStarClick } />
             <List.Content>
-              <List.Header>{ this.state.stopObj.name }</List.Header>
+              <List.Header onClick={ this.handleClick }>{ this.state.stopObj.name }</List.Header>
               <List.Description>
                 <h5>{ this.state.arrivals[0] }mins, { this.state.arrivals[1] }mins, { this.state.arrivals[2] }mins</h5>
               </List.Description>
             </List.Content>
           </List.Item>
           :
-          <List.Item onClick={ this.handleClick }>
-            <List.Icon name='marker' />
+          <List.Item>
+            <Icon name='star' onClick={ this.handleStarClick } />
             <List.Content>
-              <List.Header>{ this.state.stopObj.name }</List.Header>
+              <List.Header onClick={ this.handleClick }>{ this.state.stopObj.name }</List.Header>
             </List.Content>
           </List.Item>
         }
@@ -91,4 +118,12 @@ class StopCard extends Component {
   }
 };
 
-export default StopCard;
+const mapStateToProps = (reduxState) => {
+  return {
+    username: reduxState.user
+  }
+}
+
+export default withRouter(
+  connect(mapStateToProps)(StopCard)
+)
