@@ -4,7 +4,6 @@ import { List, Image } from 'semantic-ui-react'
 class StopCard extends Component {
 
   state = {
-    direction: "N",
     stopObj: [],
     arrivals: [],
     renderStopInfo: false
@@ -40,7 +39,7 @@ class StopCard extends Component {
         })
       })
 
-      let arrivalTimes = trainObjs.filter(obj => obj.stop_id.includes(this.state.stopObj.stop_id + this.state.direction))
+      let arrivalTimes = trainObjs.filter(obj => obj.stop_id.includes(this.state.stopObj.stop_id + this.props.direction))
       console.log(arrivalTimes);
       let trainArrivalObjs = arrivalTimes.map(obj => {
         let myDate = new Date( parseInt(obj.arrival.time) *1000);
@@ -65,8 +64,6 @@ class StopCard extends Component {
   }
 
   render(){
-    console.log(this.state.stopObj.stop_id + this.state.direction);
-    console.log(this.state.arrivals);
     return(
       <>
         {
