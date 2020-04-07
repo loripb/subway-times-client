@@ -20,7 +20,6 @@ class FormContainer extends Component {
   }
 
   render() {
-    let { username, password } = this.state
 
     return (
         <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
@@ -49,9 +48,9 @@ class FormContainer extends Component {
               {
                 this.props.formName === "Login"
                 ?
-                <div>New to us? <a href='#'>Sign Up</a></div>
+                <div>New to us? <a href='http://localhost:3000/signup'>Sign Up</a></div>
                 :
-                <div>Already have an account? <a href='#'>Login</a></div>
+                <div>Already have an account? <a href='http://localhost:3000/login'>Login</a></div>
               }
             </Message>
           </Grid.Column>
