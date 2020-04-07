@@ -37,7 +37,7 @@ class StarredStop extends Component {
         let arrivalTimes = trainObjs.filter(obj => obj.stop_id.includes(this.props.stop.stop_id + this.state.direction))
         let trainArrivalObjs = arrivalTimes.map(obj => {
           let myDate = new Date( parseInt(obj.arrival.time) *1000);
-          let today = new Date
+          let today = new Date()
 
 
           // checks for trains coming in the next hour
@@ -83,9 +83,7 @@ class StarredStop extends Component {
     .then(data => {
       let collection = []
 
-      this.props.user.starred_stops.map(starredStopId => {
-        collection.push(data.find(obj => obj.id === starredStopId.id))
-      })
+      this.props.user.starred_stops.map(starredStopId => collection.push(data.find(obj => obj.id === starredStopId.id)))
 
       let toBeDeleted = collection.find(obj => obj.stop.id === this.props.stop.id)
       this.deleteStarredStop(toBeDeleted)
