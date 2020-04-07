@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import StarredStop from './StarredStop';
-import { List, Icon, Button } from 'semantic-ui-react';
+import { List } from 'semantic-ui-react';
 
 class StarredStopsContainer extends Component {
 
