@@ -9,7 +9,6 @@ class StarredStop extends Component {
   state = {
     renderStopInfo: false,
     arrivals: [],
-    direction: "N",
     fullStop: undefined
   }
 
@@ -34,7 +33,7 @@ class StarredStop extends Component {
         // adds the objects with train arrival times and stop ids to "state"
         stopTimeArrays.map(obj => obj.map(obj2 => trainObjs.push(obj2)))
 
-        let arrivalTimes = trainObjs.filter(obj => obj.stop_id.includes(this.props.stop.stop_id + this.state.direction))
+        let arrivalTimes = trainObjs.filter(obj => obj.stop_id.includes(this.props.stop.stop_id + this.props.direction.direction))
         let trainArrivalObjs = arrivalTimes.map(obj => {
           let myDate = new Date( parseInt(obj.arrival.time) *1000);
           let today = new Date()
@@ -100,7 +99,7 @@ class StarredStop extends Component {
           <List.Item>
             <Icon name='trash alternate outline' onClick={ this.handleDelete }/>
             <List.Content>
-              <List.Header onClick={ this.handleClick }>{ this.props.stop.name }</List.Header>
+              <List.Header onClick={ this.handleClick }>{ this.props.stop.name } || { this.props.direction.direction === "N" ? "Uptown" : "Downtown" }</List.Header>
               <List.Description>
                 <h5>{ this.state.arrivals[0] }mins, { this.state.arrivals[1] }mins, { this.state.arrivals[2] }mins</h5>
               </List.Description>
@@ -110,7 +109,7 @@ class StarredStop extends Component {
           <List.Item>
             <Icon name='trash alternate outline' onClick={ this.handleDelete }/>
             <List.Content>
-              <List.Header onClick={ this.handleClick }>{ this.props.stop.name }</List.Header>
+              <List.Header onClick={ this.handleClick }>{ this.props.stop.name } || { this.props.direction.direction === "N" ? "Uptown" : "Downtown" }</List.Header>
             </List.Content>
           </List.Item>
         }
@@ -122,7 +121,8 @@ class StarredStop extends Component {
 
 const mapStateToProps = (reduxState) => {
   return {
-    user: reduxState.user
+    user: reduxState.user,
+    direction: reduxState.direction
   }
 }
 

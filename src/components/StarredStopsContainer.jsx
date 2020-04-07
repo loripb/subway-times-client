@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { changeDirection } from '../Redux/actions'
 import { withRouter } from 'react-router-dom';
 import StarredStop from './StarredStop';
-import { List } from 'semantic-ui-react';
+import { List, Button } from 'semantic-ui-react';
 
 class StarredStopsContainer extends Component {
 
@@ -12,18 +13,20 @@ class StarredStopsContainer extends Component {
                 key={ stopObj.id }
                 stop={ stopObj }
                 user={ this.props.user }
-                triggerRender={ this.props.triggerRender }
               />
-            // remove triggerRender
     })
+  }
+
+  handleClick = () => {
+    this.props.changeDirection()
   }
 
 
   render() {
-
     return (
       <>
-        <h3>Starred Stops</h3>
+        <h3>Starred Stops Going</h3>
+        <Button size='small' onClick={ this.handleClick }>Change Direction</Button>
         {
           this.props.user.starred_stops !== []
           ?
@@ -44,10 +47,11 @@ class StarredStopsContainer extends Component {
 
 const mapStateToProps = (reduxState) => {
   return {
-    user: reduxState.user
+    user: reduxState.user,
+    direction: reduxState.direction
   }
 }
 
 export default withRouter(
-  connect(mapStateToProps)(StarredStopsContainer)
+  connect(mapStateToProps, { changeDirection })(StarredStopsContainer)
 )

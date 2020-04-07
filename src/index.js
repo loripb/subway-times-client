@@ -10,10 +10,12 @@ import { Provider } from 'react-redux'
 
 import userReducer from './Redux/userReducer'
 import lineReducer from './Redux/lineReducer'
+import directionReducer from './Redux/directionReducer'
 
 let rootReducer = combineReducers({
   user: userReducer,
-  lines: lineReducer
+  lines: lineReducer,
+  direction: directionReducer
 })
 
 let storeObject = createStore(
