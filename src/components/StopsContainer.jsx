@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { changeDirection } from '../Redux/actions'
 import StopCard from './StopCard'
 import { List } from 'semantic-ui-react'
 
@@ -11,7 +14,7 @@ class StopsContainer extends Component {
   }
 
   handleDirectionChange = () => {
-    this.state.direction === "N" ? this.setState({ direction: "S" }) : this.setState({ direction: "N" })
+    this.props.changeDirection()
   }
 
   renderStops = () => {
@@ -20,8 +23,6 @@ class StopsContainer extends Component {
                 key={ stopObj.id }
                 line={ this.props.line.attributes }
                 stop={ stopObj }
-                direction={ this.state.direction }
-                handleDirectionChange={ this.handleDirectionChange }
                 triggerRender={ this.props.triggerRender }
               />
     })
@@ -31,7 +32,7 @@ class StopsContainer extends Component {
   render() {
     return (
       <div className="stop_container">
-        <h3>{ this.props.line.attributes.name } Train Stations { this.state.direction === "N" ? "To Queens" : "To Manhattan" }</h3>
+        <h3>{ this.props.line.attributes.name } Train Stations { this.props.direction === "N" ? "Uptown" : "Downtown" }</h3>
         <button className="ui small button" onClick={ this.handleDirectionChange } >Change Direction</button>
         <List celled>
           { this.renderStops() }
@@ -42,4 +43,12 @@ class StopsContainer extends Component {
 
 }
 
-export default StopsContainer;
+const mapStateToProps = (reduxState) => {
+  return {
+    direction: reduxState.direction.direction
+  }
+}
+
+export default withRouter(
+  connect(mapStateToProps, { changeDirection })(StopsContainer)
+)

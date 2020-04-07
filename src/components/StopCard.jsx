@@ -127,7 +127,8 @@ class StopCard extends Component {
 
 const mapStateToProps = (reduxState) => {
   return {
-    user: reduxState.user
+    user: reduxState.user,
+    direction: reduxState.direction.direction
   }
 }
 
