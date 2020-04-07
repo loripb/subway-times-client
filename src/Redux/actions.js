@@ -12,6 +12,13 @@ export const setAlllines = (linesArr) => {
   }
 }
 
+export const editUserInformation = (updatedUser) => {
+  return {
+    type: "EDIT_USER_INFORMATION",
+    payload: updatedUser
+  }
+}
+
 export const logOut = () => {
   return {
     type: "LOG_OUT"

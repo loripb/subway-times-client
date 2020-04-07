@@ -26,16 +26,24 @@ import {
 
 class Home extends Component {
 
+  state = {
+    render: true
+  }
 
+  triggerRender = () => {
+    this.setState({
+      render: !this.state.render
+    })
+  }
 
   render(){
     let panes = [
       { menuItem: 'Home', render: () => <Tab.Pane>Tab 1 Content</Tab.Pane> },
       { menuItem: 'Subway Lines', render: () => <Tab.Pane>
-        <GeneralContainer lines={ this.props.lines } />
+        <GeneralContainer lines={ this.props.lines } triggerRender={ this.triggerRender } />
       </Tab.Pane> },
       { menuItem: 'Starred Stops', render: () => <Tab.Pane>
-        <StarredStopsContainer />
+        <StarredStopsContainer triggerRender={ this.triggerRender } />
       </Tab.Pane> },
     ]
     return(

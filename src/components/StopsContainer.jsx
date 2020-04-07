@@ -23,6 +23,7 @@ class StopsContainer extends Component {
                 stop={ stopObj }
                 direction={ this.state.direction }
                 handleDirectionChange={ this.handleDirectionChange }
+                triggerRender={ this.props.triggerRender }
               />
     })
   }

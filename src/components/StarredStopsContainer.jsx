@@ -11,20 +11,30 @@ class StarredStopsContainer extends Component {
       return <StarredStop
                 key={ stopObj.id }
                 stop={ stopObj }
+                user={ this.props.user }
+                triggerRender={ this.props.triggerRender }
               />
     })
   }
+
 
   render() {
     console.log(this.props.user);
     return (
       <>
         <h3>Starred Stops</h3>
-        <List celled>
-          {
-            this.renderStops()
-          }
-        </List>
+        {
+          this.props.user.user_stops === []
+          ?
+          <List celled>
+            {
+              this.renderStops()
+            }
+          </List>
+          :
+          <h5>You have no starred stops. Add a stop by clicking the star net to a stop.</h5>
+
+        }
       </>
     );
   }

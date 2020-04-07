@@ -32,6 +32,7 @@ class GeneralContainer extends Component {
           <StopsContainer
             line={ this.state.line }
             handleRenderChange={ this.handleRenderChange }
+            triggerRender={ this.props.triggerRender }
           />
         }
       </>

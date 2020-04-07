@@ -86,7 +86,7 @@ class StopCard extends Component {
         })
       })
       .then(r => r.json())
-      .then(data => console.log(data))
+      .then(data => this.props.triggerRender())
     })
   }
 
