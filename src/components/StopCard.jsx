@@ -37,11 +37,7 @@ class StopCard extends Component {
       let trainObjs = []
 
       // adds the objects with train arrival times and stop ids to "state"
-      stopTimeArrays.map(obj => {
-        obj.map(obj2 => {
-          trainObjs.push(obj2)
-        })
-      })
+      stopTimeArrays.map(obj => obj.map(obj2 => trainObjs.push(obj2)))
 
       let arrivalTimes = trainObjs.filter(obj => obj.stop_id.includes(this.state.stopObj.stop_id + this.props.direction))
       let trainArrivalObjs = arrivalTimes.map(obj => {
