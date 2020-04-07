@@ -19,6 +19,12 @@ export const editUserInformation = (updatedUser) => {
   }
 }
 
+export const changeDirection = (newDirection) => {
+  return {
+    type: "CHANGE_DIRECTION"
+  }
+}
+
 export const logOut = () => {
   return {
     type: "LOG_OUT"
