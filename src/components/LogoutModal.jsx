@@ -12,6 +12,7 @@ class LogoutModal extends Component {
 
   handleClick = () => {
     this.show('mini')()
+    localStorage.clear()
     this.props.logOut()
   }
 
