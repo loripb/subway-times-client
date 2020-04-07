@@ -66,7 +66,6 @@ class StopCard extends Component {
   }
 
   addOneStarStop = (usersArray) => {
-    console.log(this.props.user, 'before add');
     let user = usersArray.find(userObj => userObj.username === this.props.user.username)
     // post fetch to starredstop/:id
     fetch('http://localhost:4000/starred_stops', {
@@ -83,7 +82,6 @@ class StopCard extends Component {
     .then(r => r.json())
     .then(data => {
       let updatedStops = [...this.props.user.user_stops, this.state.stopObj]
-      console.log(updatedStops);
       let updatedStarred = [...this.props.user.starred_stops, {id: data.starred_stop.id}]
       let updatedUser = {
         ...this.props.user,
@@ -104,7 +102,6 @@ class StopCard extends Component {
   }
 
   render(){
-    console.log(this.props.user);
     return(
       <>
         {

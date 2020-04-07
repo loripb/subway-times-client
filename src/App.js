@@ -1,13 +1,11 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Form from './components/Form'
 import Home from './components/Home'
-import LinesContainer from './components/LinesContainer'
 import { Switch, Route } from 'react-router-dom';
-import { withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { setAllLines, setUserInformation } from './Redux/actions'
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { setUserInformation } from './Redux/actions'
 
 
 class App extends React.Component {
@@ -80,9 +78,9 @@ class App extends React.Component {
       return <h2>Already logged in as {this.props.username}</h2>
     }
     if(routerProps.location.pathname === "/login"){
-      return <Form formName="Login Form" handleSubmit={this.handleLoginSubmit}/>
+      return <Form formName="Login" handleSubmit={this.handleLoginSubmit}/>
     } else if (routerProps.location.pathname === "/signup") {
-      return <Form formName="Sign in Form" handleSubmit={this.handleRegisterSubmit}/>
+      return <Form formName="Sign up" handleSubmit={this.handleRegisterSubmit}/>
     }
   }
 
@@ -96,7 +94,6 @@ class App extends React.Component {
         <Switch>
           <Route path="/login" render={ this.renderForm } />
           <Route path="/signup" render={ this.renderForm } />
-          <Route path="/profile" render={ this.renderProfile } />
           <Route path="/" exact render={() => <Home lines={ this.state.lines } /> } />
           <Route render={ () => <p>Page not Found</p> } />
         </Switch>

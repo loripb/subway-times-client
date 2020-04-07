@@ -1,27 +1,15 @@
-import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import GeneralContainer from './GeneralContainer'
 import StarredStopsContainer from './StarredStopsContainer'
 import LogoutModal from './LogoutModal'
-import {Switch, Route} from 'react-router-dom';
-import {NavLink} from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import {connect} from 'react-redux'
-import {logOut} from '../Redux/actions'
+import {NavLink} from 'react-router-dom'
 import {
   Tab,
   Button,
   Container,
-  Divider,
-  Grid,
-  Header,
-  Icon,
-  Image,
-  List,
-  Menu,
-  Responsive,
-  Segment,
-  Sidebar,
-  Visibility,
+  Header
 } from 'semantic-ui-react'
 
 class Home extends Component {
@@ -38,7 +26,10 @@ class Home extends Component {
 
   render(){
     let panes = [
-      { menuItem: 'Home', render: () => <Tab.Pane>Tab 1 Content</Tab.Pane> },
+      { menuItem: 'Home', render: () => <Tab.Pane>
+        <h5>Hello, { this.props.username }!</h5>
+        <p>Get Real-time MTA Train times!</p>
+      </Tab.Pane> },
       { menuItem: 'Subway Lines', render: () => <Tab.Pane>
         <GeneralContainer lines={ this.props.lines } triggerRender={ this.triggerRender } />
       </Tab.Pane> },
@@ -66,4 +57,13 @@ class Home extends Component {
   }
 }
 
-export default Home
+const mapStateToProps = (reduxState) => {
+  return {
+    token: reduxState.user.token,
+    username: reduxState.user.username
+  }
+}
+
+export default withRouter(
+  connect(mapStateToProps)(Home)
+)

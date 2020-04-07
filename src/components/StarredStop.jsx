@@ -39,7 +39,6 @@ class StarredStop extends Component {
         })
 
         let arrivalTimes = trainObjs.filter(obj => obj.stop_id.includes(this.props.stop.stop_id + this.state.direction))
-        console.log(arrivalTimes);
         let trainArrivalObjs = arrivalTimes.map(obj => {
           let myDate = new Date( parseInt(obj.arrival.time) *1000);
           let today = new Date
@@ -54,7 +53,6 @@ class StarredStop extends Component {
             return [myDate.getMinutes() - today.getMinutes(), obj.name]
           }
         })
-        console.log("fetched");
         this.setState({
           renderStopInfo: !this.state.renderStopInfo,
           arrivals: trainArrivalObjs,
@@ -64,18 +62,15 @@ class StarredStop extends Component {
   }
 
   deleteStarredStop = (starredStop) => {
-    console.log(this.props.stop.id);
     let updatedStops = this.props.user.user_stops.filter(stop => stop.id !== this.props.stop.id)
     let updatedStarredStops = this.props.user.starred_stops.filter(stop => stop.id !== starredStop.id)
 
-    console.log(updatedStarredStops);
     let updatedUser = {
       ...this.props.user,
       starred_stops: updatedStarredStops,
       user_stops: updatedStops
     }
 
-    console.log(updatedUser.username, "from delete");
     this.props.editUserInformation(updatedUser)
 
     fetch(`http://localhost:4000/starred_stops/${starredStop.id}`, {
@@ -90,7 +85,6 @@ class StarredStop extends Component {
     fetch("http://localhost:4000/starred_stops/")
     .then(r => r.json())
     .then(data => {
-      // console.log(data.find(obj => obj.id === this.props.user.))
       let collection = []
 
       this.props.user.starred_stops.map(starredStopId => {
@@ -104,7 +98,6 @@ class StarredStop extends Component {
 
 
   render(){
-    console.log(this.props.user);
     return(
       <>
         {
