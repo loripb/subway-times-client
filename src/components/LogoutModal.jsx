@@ -31,9 +31,9 @@ class LogoutModal extends Component {
             <Button
               onClick={ this.close }
               positive
-              icon='checkmark'
+              icon='info circle'
               labelPosition='right'
-              content='Yes'
+              content='Okay'
             />
           </Modal.Actions>
         </Modal>
