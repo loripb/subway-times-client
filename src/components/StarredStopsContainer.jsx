@@ -14,17 +14,18 @@ class StarredStopsContainer extends Component {
                 user={ this.props.user }
                 triggerRender={ this.props.triggerRender }
               />
+            // remove triggerRender
     })
   }
 
 
   render() {
-    console.log(this.props.user);
+
     return (
       <>
         <h3>Starred Stops</h3>
         {
-          this.props.user.user_stops === []
+          this.props.user.starred_stops !== []
           ?
           <List celled>
             {

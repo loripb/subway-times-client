@@ -21,7 +21,7 @@ let userReducer = (state = initialState, action) => {
       return {
         ...state,
         username: action.payload.username,
-        user_stops: action.payload.stops,
+        user_stops: action.payload.user_stops,
         starred_stops: action.payload.starred_stops,
         token: action.payload.token
       }

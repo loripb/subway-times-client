@@ -64,10 +64,15 @@ class StarredStop extends Component {
   }
 
   deleteStarredStop = (starredStop) => {
-    let updatedStarredStops = this.props.user.starred_stops.filter(obj => obj.id !== starredStop.id)
+    console.log(this.props.stop.id);
+    let updatedStops = this.props.user.user_stops.filter(stop => stop.id !== this.props.stop.id)
+    let updatedStarredStops = this.props.user.starred_stops.filter(stop => stop.id !== starredStop.id)
+
+    console.log(updatedStarredStops);
     let updatedUser = {
       ...this.props.user,
-      starred_stops: updatedStarredStops
+      starred_stops: updatedStarredStops,
+      user_stops: updatedStops
     }
 
     console.log(updatedUser.username, "from delete");

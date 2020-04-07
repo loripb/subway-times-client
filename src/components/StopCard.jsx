@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { editUserInformation } from '../Redux/actions'
 import { List, Icon, Button } from 'semantic-ui-react';
 
 class StopCard extends Component {
@@ -43,7 +44,6 @@ class StopCard extends Component {
       })
 
       let arrivalTimes = trainObjs.filter(obj => obj.stop_id.includes(this.state.stopObj.stop_id + this.props.direction))
-      console.log(arrivalTimes);
       let trainArrivalObjs = arrivalTimes.map(obj => {
         let myDate = new Date( parseInt(obj.arrival.time) *1000);
         let today = new Date
@@ -58,11 +58,40 @@ class StopCard extends Component {
           return [myDate.getMinutes() - today.getMinutes(), obj.name]
         }
       })
-      console.log("fetched");
       this.setState({
         renderStopInfo: !this.state.renderStopInfo,
         arrivals: trainArrivalObjs
       })
+    })
+  }
+
+  addOneStarStop = (usersArray) => {
+    console.log(this.props.user, 'before add');
+    let user = usersArray.find(userObj => userObj.username === this.props.user.username)
+    // post fetch to starredstop/:id
+    fetch('http://localhost:4000/starred_stops', {
+      method: "POST",
+      headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json'
+      },
+      body: JSON.stringify({
+        user_id: user.id,
+        stop_id: this.state.stopObj.id
+      })
+    })
+    .then(r => r.json())
+    .then(data => {
+      let updatedStops = [...this.props.user.user_stops, this.state.stopObj]
+      console.log(updatedStops);
+      let updatedStarred = [...this.props.user.starred_stops, {id: data.starred_stop.id}]
+      let updatedUser = {
+        ...this.props.user,
+        user_stops: updatedStops,
+        starred_stops: updatedStarred
+      }
+
+      this.props.editUserInformation(updatedUser)
     })
   }
 
@@ -71,26 +100,11 @@ class StopCard extends Component {
     fetch("http://localhost:4000/users/")
     .then(r => r.json())
     // use username to match user obj
-    .then(usersArray => {
-      let user = usersArray.find(userObj => userObj.username === this.props.username.username)
-      // post fetch to starredstop/:id
-      fetch('http://localhost:4000/starred_stops', {
-        method: "POST",
-        headers: {
-          'content-type': 'application/json',
-          'accept': 'application/json'
-        },
-        body: JSON.stringify({
-          user_id: user.id,
-          stop_id: this.state.stopObj.id
-        })
-      })
-      .then(r => r.json())
-      .then(data => this.props.triggerRender())
-    })
+    .then(usersArray => this.addOneStarStop(usersArray))
   }
 
   render(){
+    console.log(this.props.user);
     return(
       <>
         {
@@ -120,10 +134,10 @@ class StopCard extends Component {
 
 const mapStateToProps = (reduxState) => {
   return {
-    username: reduxState.user
+    user: reduxState.user
   }
 }
 
 export default withRouter(
-  connect(mapStateToProps)(StopCard)
+  connect(mapStateToProps, { editUserInformation })(StopCard)
 )

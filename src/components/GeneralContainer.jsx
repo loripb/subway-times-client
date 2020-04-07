@@ -11,7 +11,6 @@ class GeneralContainer extends Component {
   }
 
   handleRenderChange = (lineObj) => {
-    console.log(lineObj, "in render change")
     this.setState({
       line: lineObj,
       renderLines: !this.state.renderLines

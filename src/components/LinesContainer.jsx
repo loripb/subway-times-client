@@ -15,7 +15,6 @@ class LinesContainer extends Component {
     fetch("http://localhost:4000/lines")
     .then(r => r.json())
     .then(data => {
-      console.log(data)
       let lines = data.data
 
       this.setState({
@@ -35,7 +34,6 @@ class LinesContainer extends Component {
   }
 
   render() {
-    console.log(this.state.lines, "log");
     return (
       <div>
         <List celled>

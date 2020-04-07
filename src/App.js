@@ -32,7 +32,6 @@ class App extends React.Component {
 
 
   handleLoginSubmit = (userInfo) => {
-    console.log("Login form has been submitted")
 
     //
     fetch("http://localhost:4000/login", {
@@ -45,8 +44,6 @@ class App extends React.Component {
     })
     .then(r => r.json())
     .then((resp) => {
-      console.log(resp, "FROM Login")
-      console.log(resp);
       localStorage.token = resp.token
       this.props.setUserInformation(resp)
       this.props.history.push("/")
@@ -56,8 +53,6 @@ class App extends React.Component {
   }
 
   handleRegisterSubmit = (userInfo) => {
-    console.log("Register form has been submitted")
-    console.log(userInfo)
     fetch("http://localhost:4000/users", {
       method: "POST",
       headers: {
@@ -96,7 +91,6 @@ class App extends React.Component {
   // }
 
   render(){
-    console.log(this.props);
     return (
       <div className="App">
         <Switch>
