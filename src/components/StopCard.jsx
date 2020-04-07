@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { editUserInformation } from '../Redux/actions'
-import { List, Icon, Button } from 'semantic-ui-react';
+import { List, Icon } from 'semantic-ui-react';
 
 class StopCard extends Component {
 
@@ -42,7 +42,7 @@ class StopCard extends Component {
       let arrivalTimes = trainObjs.filter(obj => obj.stop_id.includes(this.state.stopObj.stop_id + this.props.direction))
       let trainArrivalObjs = arrivalTimes.map(obj => {
         let myDate = new Date( parseInt(obj.arrival.time) *1000);
-        let today = new Date
+        let today = new Date()
 
 
         // checks for trains coming in the next hour
