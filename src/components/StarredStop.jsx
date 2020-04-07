@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { editUserInformation } from '../Redux/actions'
-import { List, Icon, Button } from 'semantic-ui-react';
+import { List, Icon } from 'semantic-ui-react';
 
 class StarredStop extends Component {
 
@@ -32,11 +32,7 @@ class StarredStop extends Component {
         let trainObjs = []
 
         // adds the objects with train arrival times and stop ids to "state"
-        stopTimeArrays.map(obj => {
-          obj.map(obj2 => {
-            trainObjs.push(obj2)
-          })
-        })
+        stopTimeArrays.map(obj => obj.map(obj2 => trainObjs.push(obj2)))
 
         let arrivalTimes = trainObjs.filter(obj => obj.stop_id.includes(this.props.stop.stop_id + this.state.direction))
         let trainArrivalObjs = arrivalTimes.map(obj => {
