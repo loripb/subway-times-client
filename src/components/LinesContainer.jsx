@@ -34,7 +34,7 @@ class LinesContainer extends Component {
   render() {
     return (
       <div>
-        <List celled>
+        <List celled relaxed='very'>
           { this.renderLines() }
         </List>
       </div>

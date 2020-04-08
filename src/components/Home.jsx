@@ -40,17 +40,26 @@ class Home extends Component {
     return(
       <>
         <div>
-          <Header as='h1'>Subway Times</Header>
+          <Header dividing='true' size='huge' color='yellow' as='h1'>Subway Times</Header>
+          {
+            localStorage.token
+            ?
+            <>
+            <LogoutModal />
+            </>
+            :
+            <>
+              <NavLink to="/login">
+                <Button floated='left' size='small' color='yellow'>Login</Button>
+              </NavLink>
+              <NavLink to="/signup">
+                <Button floated='left' size='small' color='yellow'>Sign Up</Button>
+              </NavLink>
+            </>
+          }
         </div>
-        <LogoutModal />
-        <NavLink to="/login">
-          <Button size='small' inverted color='blue'>Login</Button>
-        </NavLink>
-        <NavLink to="/signup">
-          <Button size='small' inverted color='blue'>Sign Up</Button>
-        </NavLink>
         <Container>
-          <Tab menu={{ fluid: true, vertical: true, tabular: true }} panes={panes} />
+          <Tab menu={{ inverted: true, fluid: true, vertical: true, tabular: true, size: 'massive', widths: '16', color: 'yellow' }} panes={panes} />
         </Container>
       </>
     )

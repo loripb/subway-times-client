@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { changeDirection } from '../Redux/actions'
 import StopCard from './StopCard'
-import { List } from 'semantic-ui-react'
+import { List, Icon } from 'semantic-ui-react'
 
 
 
@@ -33,8 +33,8 @@ class StopsContainer extends Component {
     return (
       <div className="stop_container">
         <h3>{ this.props.line.attributes.name } Train Stations { this.props.direction === "N" ? "Uptown" : "Downtown" }</h3>
-        <button className="ui small button" onClick={ this.handleDirectionChange } >Change Direction</button>
-        <List celled>
+        <Icon className='exchange' onClick={ this.handleDirectionChange } color="orange" size='large'/>
+        <List celled relaxed='very'>
           { this.renderStops() }
         </List>
       </div>

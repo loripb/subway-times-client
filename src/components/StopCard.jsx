@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { editUserInformation } from '../Redux/actions'
-import { List, Icon } from 'semantic-ui-react';
+import { List, Icon, Button } from 'semantic-ui-react';
 
 class StopCard extends Component {
 
@@ -104,7 +104,12 @@ class StopCard extends Component {
           this.state.renderStopInfo
           ?
           <List.Item>
-            <Icon name='star' onClick={ this.handleStarClick } />
+            <Button animated size='small' onClick={ this.handleStarClick } floated='left'>
+              <Button.Content hidden>Star It</Button.Content>
+              <Button.Content visible>
+                <Icon name='star' />
+              </Button.Content>
+            </Button>
             <List.Content>
               <List.Header onClick={ this.handleClick }>{ this.state.stopObj.name }</List.Header>
               <List.Description>
@@ -114,7 +119,12 @@ class StopCard extends Component {
           </List.Item>
           :
           <List.Item>
-            <Icon name='star' onClick={ this.handleStarClick } />
+            <Button animated size='mini' onClick={ this.handleStarClick } floated='left'>
+              <Button.Content hidden>Star It</Button.Content>
+              <Button.Content visible>
+                <Icon name='star' />
+              </Button.Content>
+            </Button>
             <List.Content>
               <List.Header onClick={ this.handleClick }>{ this.state.stopObj.name }</List.Header>
             </List.Content>

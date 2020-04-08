@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { changeDirection } from '../Redux/actions'
 import { withRouter } from 'react-router-dom';
 import StarredStop from './StarredStop';
-import { List, Button } from 'semantic-ui-react';
+import { List, Button, Icon } from 'semantic-ui-react';
 
 class StarredStopsContainer extends Component {
 
@@ -25,12 +25,12 @@ class StarredStopsContainer extends Component {
   render() {
     return (
       <>
-        <h3>Starred Stops Going</h3>
-        <Button size='small' onClick={ this.handleClick }>Change Direction</Button>
+        <h3>Starred Stops</h3>
+        <Icon className='exchange' onClick={ this.handleClick } color="orange" size='large'/>
         {
           this.props.user.starred_stops !== []
           ?
-          <List celled>
+          <List celled relaxed='very'>
             {
               this.renderStops()
             }

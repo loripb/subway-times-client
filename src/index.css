@@ -5,9 +5,23 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: royalblue;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+div.ui.grid {
+  margin-top: 5%;
+}
+
+div.ui.yellow.massive.fluid.inverted.vertical.tabular.sixteen.item.menu {
+    border-radius: 5px;
+}
+
+div.ui.bottom.attached.segment.active.tab {
+  background-color: gainsboro;
+  border-radius: 5px;
 }

@@ -2,43 +2,31 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { logOut } from '../Redux/actions'
-import { Button, Modal } from 'semantic-ui-react'
+import { Button, Confirm } from 'semantic-ui-react'
 
 class LogoutModal extends Component {
-  state = { open: false }
+state = { open: false, result: 'show the modal to capture a result' }
 
-  show = (size) => () => this.setState({ size, open: true })
-  close = () => this.setState({ open: false })
-
-  handleClick = () => {
-    this.show('mini')()
+  show = () => this.setState({ open: true })
+  handleConfirm = () => {
     localStorage.clear()
     this.props.logOut()
+    this.setState({ result: 'confirmed', open: false })
   }
+  handleCancel = () => this.setState({ result: 'cancelled', open: false })
 
   render() {
-    const { open, size } = this.state
+    const { open, result } = this.state
 
     return (
-      <>
-        <Button onClick={ this.handleClick } size='small' inverted color='blue'>Log Out</Button>
-
-        <Modal size={size} open={open} onClose={this.close}>
-          <Modal.Header></Modal.Header>
-          <Modal.Content>
-            <p>Logged out successfully.</p>
-          </Modal.Content>
-          <Modal.Actions>
-            <Button
-              onClick={ this.close }
-              positive
-              icon='info circle'
-              labelPosition='right'
-              content='Okay'
-            />
-          </Modal.Actions>
-        </Modal>
-      </>
+      <div>
+        <Button floated='right' size='small' color='blue' onClick={this.show}>Log out</Button>
+        <Confirm
+          open={open}
+          onCancel={this.handleCancel}
+          onConfirm={this.handleConfirm}
+        />
+      </div>
     )
   }
 }
