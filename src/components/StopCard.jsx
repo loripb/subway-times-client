@@ -40,20 +40,28 @@ class StopCard extends Component {
       stopTimeArrays.map(obj => obj.map(obj2 => trainObjs.push(obj2)))
 
       let arrivalTimes = trainObjs.filter(obj => obj.stop_id.includes(this.state.stopObj.stop_id + this.props.direction))
+
+      // convert each train arrival from epoch, then get the remaining time
       let trainArrivalObjs = arrivalTimes.map(obj => {
-        let myDate = new Date( parseInt(obj.arrival.time) *1000);
-        let today = new Date()
+        let trainTime = new Date( parseInt(obj.arrival.time) *1000);
+        let timeNow = new Date()
 
+        // setting hours and mins
+        let trainHour = trainTime.getHours() > 12? trainTime.getHours() - 12 : trainTime.getHours()
+        let trainMin = trainTime.getMinutes()
+        let currentHour = timeNow.getHours() > 12? timeNow.getHours() - 12 : timeNow.getHours()
+        let currentMin = timeNow.getMinutes()
+        console.log(`current time: ${currentHour}:${currentMin}`, `Train arrival: ${trainHour}:${trainMin}`);
 
-        // checks for trains coming in the next hour
-        // if the train arrival minus the time now is negative add 60 mins
-        // return myDate.getMinutes() - today.getMinutes()
-        if (Math.sign(myDate.getMinutes() - today.getMinutes()) === -1) {
-          return [(myDate.getMinutes() - today.getMinutes()) + 60, obj.name]
-        } else {
-          return [myDate.getMinutes() - today.getMinutes(), obj.name]
+        // if trainHour is > current hour add 60 mins to trainMin
+        if (trainHour > currentHour) {
+          trainMin += 60
         }
+
+        // take hour and min of train time and subtract each from the current time, if result is negative return 0
+        return Math.sign(trainMin - currentMin) === -1 ? 0 : trainMin - currentMin
       })
+
       this.setState({
         renderStopInfo: !this.state.renderStopInfo,
         arrivals: trainArrivalObjs
@@ -63,7 +71,7 @@ class StopCard extends Component {
 
   addOneStarStop = (usersArray) => {
     let user = usersArray.find(userObj => userObj.username === this.props.user.username)
-    // post fetch to starredstop/:id
+
     fetch('http://localhost:4000/starred_stops', {
       method: "POST",
       headers: {
@@ -104,14 +112,14 @@ class StopCard extends Component {
           this.state.renderStopInfo
           ?
           <List.Item>
-            <Button animated size='small' onClick={ this.handleStarClick } floated='left'>
+            <Button animated size='mini' onClick={ this.handleStarClick } floated='left'>
               <Button.Content hidden>Star It</Button.Content>
               <Button.Content visible>
-                <Icon name='star' />
+                <Icon name='star' color="yellow"/>
               </Button.Content>
             </Button>
-            <List.Content>
-              <List.Header onClick={ this.handleClick }>{ this.state.stopObj.name }</List.Header>
+            <List.Content onClick={ this.handleClick }>
+              <List.Header>{ this.state.stopObj.name }</List.Header>
               <List.Description>
                 <h5>{ this.state.arrivals[0] }mins, { this.state.arrivals[1] }mins, { this.state.arrivals[2] }mins</h5>
               </List.Description>
@@ -122,11 +130,11 @@ class StopCard extends Component {
             <Button animated size='mini' onClick={ this.handleStarClick } floated='left'>
               <Button.Content hidden>Star It</Button.Content>
               <Button.Content visible>
-                <Icon name='star' />
+                <Icon name='star' color="yellow"/>
               </Button.Content>
             </Button>
-            <List.Content>
-              <List.Header onClick={ this.handleClick }>{ this.state.stopObj.name }</List.Header>
+            <List.Content onClick={ this.handleClick }>
+              <List.Header>{ this.state.stopObj.name }</List.Header>
             </List.Content>
           </List.Item>
         }

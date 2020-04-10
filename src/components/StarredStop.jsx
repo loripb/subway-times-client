@@ -35,18 +35,23 @@ class StarredStop extends Component {
 
         let arrivalTimes = trainObjs.filter(obj => obj.stop_id.includes(this.props.stop.stop_id + this.props.direction.direction))
         let trainArrivalObjs = arrivalTimes.map(obj => {
-          let myDate = new Date( parseInt(obj.arrival.time) *1000);
-          let today = new Date()
+          let trainTime = new Date( parseInt(obj.arrival.time) *1000);
+          let timeNow = new Date()
 
+          // setting hours and mins
+          let trainHour = trainTime.getHours() > 12? trainTime.getHours() - 12 : trainTime.getHours()
+          let trainMin = trainTime.getMinutes()
+          let currentHour = timeNow.getHours() > 12? timeNow.getHours() - 12 : timeNow.getHours()
+          let currentMin = timeNow.getMinutes()
+          console.log(`current time: ${currentHour}:${currentMin}`, `Train arrival: ${trainHour}:${trainMin}`);
 
-          // checks for trains coming in the next hour
-          // if the train arrival minus the time now is negative add 60 mins
-          // return myDate.getMinutes() - today.getMinutes()
-          if (Math.sign(myDate.getMinutes() - today.getMinutes()) === -1) {
-            return [(myDate.getMinutes() - today.getMinutes()) + 60, obj.name]
-          } else {
-            return [myDate.getMinutes() - today.getMinutes(), obj.name]
+          // if trainHour is > current hour add 60 mins to trainMin
+          if (trainHour > currentHour) {
+            trainMin += 60
           }
+
+          // take hour and min of train time and subtract each from the current time, if result is negative return 0
+          return Math.sign(trainMin - currentMin) === -1 ? 0 : trainMin - currentMin
         })
         this.setState({
           renderStopInfo: !this.state.renderStopInfo,

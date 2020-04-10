@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { logOut } from '../Redux/actions'
-import { Button, Confirm } from 'semantic-ui-react'
+import { Menu, Confirm } from 'semantic-ui-react'
 
 class LogoutModal extends Component {
 state = { open: false, result: 'show the modal to capture a result' }
@@ -20,7 +20,7 @@ state = { open: false, result: 'show the modal to capture a result' }
 
     return (
       <div>
-        <Button floated='right' size='small' color='blue' onClick={this.show}>Log out</Button>
+        <Menu.Item onClick={this.show} >Log out</Menu.Item>
         <Confirm
           open={open}
           onCancel={this.handleCancel}

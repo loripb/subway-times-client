@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { List } from 'semantic-ui-react'
+import { Grid, Icon } from 'semantic-ui-react'
 
 class LineCard extends Component {
 
@@ -11,12 +11,9 @@ class LineCard extends Component {
 
   render() {
     return (
-      <List.Item onClick={ this.handleClick } >
-        <List.Icon name='marker' color='orange'/>
-        <List.Content>
-          <List.Header>{this.props.line.attributes.name}</List.Header>
-        </List.Content>
-      </List.Item>
+      <Grid.Column onClick={ this.handleClick } >
+        <h2>{this.props.line.attributes.name}</h2><Icon name='train' color='orange'/>
+      </Grid.Column>
     );
   }
 

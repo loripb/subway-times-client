@@ -32,7 +32,7 @@ class StopsContainer extends Component {
   render() {
     return (
       <div className="stop_container">
-        <h3>{ this.props.line.attributes.name } Train Stations { this.props.direction === "N" ? "Uptown" : "Downtown" }</h3>
+        <h2>{ this.props.line.attributes.name } Train Stops { this.props.direction === "N" ? "Uptown" : "Downtown" }</h2>
         <Icon className='exchange' onClick={ this.handleDirectionChange } color="orange" size='large'/>
         <List celled relaxed='very'>
           { this.renderStops() }

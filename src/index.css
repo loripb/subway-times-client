@@ -5,7 +5,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: royalblue;
+  background: #0F2027;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 }
 
 code {
@@ -13,15 +16,21 @@ code {
     monospace;
 }
 
-div.ui.grid {
-  margin-top: 5%;
+div.ui.text.container {
+  background-color: white;
+  border-radius: .5%;
 }
 
-div.ui.yellow.massive.fluid.inverted.vertical.tabular.sixteen.item.menu {
-    border-radius: 5px;
+div.ui.stacked.segment, div.ui.top.fixed.menu {
+  background-color: darkgrey;
 }
 
-div.ui.bottom.attached.segment.active.tab {
+div.ui.text.container {
   background-color: gainsboro;
-  border-radius: 5px;
+}
+
+div.ui.center.aligned.container {
+  background-color: darkgrey;
+  border-radius: .5%;
+  opacity: 30%;
 }

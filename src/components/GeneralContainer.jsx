@@ -20,6 +20,7 @@ class GeneralContainer extends Component {
   render() {
     return (
       <>
+        <h1>Subway Lines</h1>
         {
           this.state.renderLines
           ?
