@@ -95,7 +95,7 @@ class LinesContainer extends Component {
       />
   })}
 
-    return <Grid columns='three' divided >
+    return <Grid columns='three' divided='vertically' >
             <Grid.Row>
               {row1()}
             </Grid.Row>

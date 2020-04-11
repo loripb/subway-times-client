@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { changeDirection } from '../Redux/actions'
 import { withRouter } from 'react-router-dom';
 import StarredStop from './StarredStop';
-import { List, Button, Icon } from 'semantic-ui-react';
+import { List, Button, Icon, Image } from 'semantic-ui-react';
 
 class StarredStopsContainer extends Component {
 
@@ -22,13 +22,14 @@ class StarredStopsContainer extends Component {
   }
 
 
-  render() {
+  render(){
+    console.log(this.props.user.starred_stops)
     return (
       <>
         <h3>Starred Stops</h3>
         <Icon className='exchange' onClick={ this.handleClick } color="orange" size='large'/>
         {
-          this.props.user.starred_stops !== []
+          this.props.user.starred_stops.length > 0
           ?
           <List celled relaxed='very'>
             {
@@ -37,7 +38,6 @@ class StarredStopsContainer extends Component {
           </List>
           :
           <h5>You have no starred stops. Add a stop by clicking the star net to a stop.</h5>
-
         }
       </>
     );

@@ -15,14 +15,19 @@ import {
   List,
   Menu,
   Segment,
+  Dimmer,
+  Loader
 } from 'semantic-ui-react'
 
 class Home extends Component {
 
   state = {
     home: true,
-    general: true
+    general: true,
+    active: true
   }
+
+  handleActive = () => this.setState({active: false})
 
   triggerRender = () => {
     this.setState({
@@ -41,8 +46,10 @@ class Home extends Component {
     window.location.reload()
   }
 
+
   render(){
     return(
+      <>
       <div>
         <Menu fixed='top'>
           <Container>
@@ -93,69 +100,70 @@ class Home extends Component {
           {
             this.state.general
             ?
-            <GeneralContainer lines={ this.props.lines } triggerRender={ this.triggerRender } />
+              <GeneralContainer lines={ this.props.lines } triggerRender={ this.triggerRender } />
             :
-            <StarredStopsContainer triggerRender={ this.triggerRender } />
+              <StarredStopsContainer triggerRender={ this.triggerRender } />
           }
         </Container>
 
-        <Segment vertical style={{ margin: '5em 0em 0em', padding: '5em 0em' }}>
-          <Container textAlign='center'>
-            <Grid divided inverted stackable>
-              <Grid.Column width={3}>
-                <Header inverted as='h4' />
-                <List link inverted>
-                  <List.Item as='a'></List.Item>
-                  <List.Item as='a'></List.Item>
-                  <List.Item as='a'></List.Item>
-                  <List.Item as='a'></List.Item>
-                </List>
-              </Grid.Column>
-              <Grid.Column width={3}>
-                <Header inverted as='h4' />
-                <List link inverted>
-                  <List.Item as='a'></List.Item>
-                  <List.Item as='a'></List.Item>
-                  <List.Item as='a'></List.Item>
-                  <List.Item as='a'></List.Item>
-                </List>
-              </Grid.Column>
-              <Grid.Column width={3}>
-                <Header inverted as='h4' />
-                <List link inverted>
-                  <List.Item as='a'></List.Item>
-                  <List.Item as='a'></List.Item>
-                  <List.Item as='a'></List.Item>
-                  <List.Item as='a'></List.Item>
-                </List>
-              </Grid.Column>
-              <Grid.Column width={7}>
-                <Header inverted as='h4' />
-                <p>
-
-                </p>
-              </Grid.Column>
-            </Grid>
-
-            <Divider section />
-            <Image centered size='mini' src='/train-logo-png-8.png' />
-            <List horizontal divided link size='small'>
-              <List.Item as='a' href='#'>
-                Site Map
-              </List.Item>
-              <List.Item as='a' href='#'>
-                Contact Us
-              </List.Item>
-              <List.Item as='a' href='#'>
-                Terms and Conditions
-              </List.Item>
-              <List.Item as='a' href='#'>
-                Privacy Policy
-              </List.Item>
-            </List>
-          </Container>
-        </Segment>
       </div>
+      <Segment vertical style={{ margin: '5em 0em 0em', padding: '5em 0em' }}>
+        <Container textAlign='center'>
+          <Grid divided inverted stackable>
+            <Grid.Column width={3}>
+              <Header inverted as='h4' />
+              <List link inverted>
+                <List.Item as='a'></List.Item>
+                <List.Item as='a'></List.Item>
+                <List.Item as='a'></List.Item>
+                <List.Item as='a'></List.Item>
+              </List>
+            </Grid.Column>
+            <Grid.Column width={3}>
+              <Header inverted as='h4' />
+              <List link inverted>
+                <List.Item as='a'></List.Item>
+                <List.Item as='a' href='#'>Lori Boyd</List.Item>
+                <List.Item as='a'></List.Item>
+                <List.Item as='a'></List.Item>
+              </List>
+            </Grid.Column>
+            <Grid.Column width={3}>
+              <Header inverted as='h4' />
+              <List link inverted>
+                <List.Item as='a'></List.Item>
+                <List.Item as='a' href='https://github.com/loripb/subway-times-client'>GitHub</List.Item>
+                <List.Item as='a'></List.Item>
+                <List.Item as='a'></List.Item>
+              </List>
+            </Grid.Column>
+            <Grid.Column width={7}>
+              <Header inverted as='h4' />
+              <p>
+
+              </p>
+            </Grid.Column>
+          </Grid>
+
+          <Divider section />
+          <Image centered size='mini' src='/train-logo-png-8.png' />
+          <List horizontal divided link size='small' id="footer">
+            <List.Item as='a' href='#'>
+              Site Map
+            </List.Item>
+            <List.Item as='a' href='#'>
+              Contact Us
+            </List.Item>
+            <List.Item as='a' href='#'>
+              Terms and Conditions
+            </List.Item>
+            <List.Item as='a' href='#'>
+              Privacy Policy
+            </List.Item>
+          </List>
+        </Container>
+      </Segment>
+      </>
     )
   }
 }

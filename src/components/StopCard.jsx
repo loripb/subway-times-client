@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { editUserInformation } from '../Redux/actions'
-import { List, Icon, Button } from 'semantic-ui-react';
+import { List, Icon, Button, Popup } from 'semantic-ui-react';
+
+const timeoutLength = 2500
 
 class StopCard extends Component {
 
@@ -10,7 +12,21 @@ class StopCard extends Component {
     foundUser: undefined,
     stopObj: [],
     arrivals: [],
-    renderStopInfo: false
+    renderStopInfo: false,
+    isOpen: false
+  }
+
+  handleOpen = () => {
+    this.setState({ isOpen: true })
+
+    this.timeout = setTimeout(() => {
+      this.setState({ isOpen: false })
+    }, timeoutLength)
+  }
+
+  handleClose = () => {
+    this.setState({ isOpen: false })
+    clearTimeout(this.timeout)
   }
 
   componentDidMount(){
@@ -112,12 +128,15 @@ class StopCard extends Component {
           this.state.renderStopInfo
           ?
           <List.Item>
-            <Button animated size='mini' onClick={ this.handleStarClick } floated='left'>
-              <Button.Content hidden>Star It</Button.Content>
-              <Button.Content visible>
-                <Icon name='star' color="yellow"/>
-              </Button.Content>
-            </Button>
+            <Popup
+              trigger={<Icon onClick={ this.handleStarClick } name='star' color="yellow"/>}
+              content={`Starred!`}
+              on='click'
+              open={this.state.isOpen}
+              onClose={this.handleClose}
+              onOpen={this.handleOpen}
+              position='top center'
+            />
             <List.Content onClick={ this.handleClick }>
               <List.Header>{ this.state.stopObj.name }</List.Header>
               <List.Description>
@@ -127,12 +146,7 @@ class StopCard extends Component {
           </List.Item>
           :
           <List.Item>
-            <Button animated size='mini' onClick={ this.handleStarClick } floated='left'>
-              <Button.Content hidden>Star It</Button.Content>
-              <Button.Content visible>
-                <Icon name='star' color="yellow"/>
-              </Button.Content>
-            </Button>
+            <Icon onClick={ this.handleStarClick } name='star' color="yellow"/>
             <List.Content onClick={ this.handleClick }>
               <List.Header>{ this.state.stopObj.name }</List.Header>
             </List.Content>
