@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project also uses a custom [api](https://github.com/loripb/subway-times-api)
 
 ## Available Scripts
 
