@@ -1,4 +1,4 @@
-This project also uses a custom [api](https://github.com/loripb/subway-times-api)
+This project also uses a custom [API](https://github.com/loripb/subway-times-api)
 
 ## Available Scripts
 
