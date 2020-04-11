@@ -17,20 +17,18 @@ code {
 }
 
 div.ui.text.container {
-  background-color: white;
-  border-radius: .5%;
+  background-color: gainsboro;
+  border-radius: 12px;
 }
 
 div.ui.stacked.segment, div.ui.top.fixed.menu {
   background-color: darkgrey;
-}
+  border-radius: 12px;
 
-div.ui.text.container {
-  background-color: gainsboro;
 }
 
 div.ui.center.aligned.container {
   background-color: darkgrey;
-  border-radius: .5%;
-  opacity: 30%;
+  border-radius: 12px;
+  opacity: 65%;
 }
