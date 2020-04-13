@@ -5,14 +5,10 @@ import Home from './components/Home'
 import { Switch, Route } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setUserInformation } from './Redux/actions'
+import { setUserInformation, setAlllines } from './Redux/actions'
 
 
 class App extends React.Component {
-
-  state = {
-    lines: []
-  }
 
   componentDidMount() {
     if (localStorage.token) {
@@ -26,6 +22,13 @@ class App extends React.Component {
         this.props.setUserInformation(resp)
       })
     }
+
+    fetch("http://localhost:4000/lines")
+    .then(r => r.json())
+    .then((resp) => {
+      let lines = resp.data
+      this.props.setAlllines(lines)
+    })
   }
 
 
@@ -92,9 +95,9 @@ class App extends React.Component {
     return (
       <div className="App">
         <Switch>
-          <Route path="/login" render={ this.renderForm } />
-          <Route path="/signup" render={ this.renderForm } />
-          <Route path="/" exact render={() => <Home lines={ this.state.lines } /> } />
+          <Route path="/login" exact render={ this.renderForm } />
+          <Route path="/signup" exact render={ this.renderForm } />
+          <Route path="/" exact render={() => <Home /> } />
           <Route render={ () => <p>Page not Found</p> } />
         </Switch>
       </div>
@@ -111,5 +114,5 @@ const mapStateToProps = (reduxState) => {
 }
 
 export default withRouter(
-  connect(mapStateToProps, {setUserInformation})(App)
+  connect(mapStateToProps, {setUserInformation, setAlllines})(App)
 )

@@ -23,7 +23,6 @@ class StarredStopsContainer extends Component {
 
 
   render(){
-    console.log(this.props.user.starred_stops)
     return (
       <>
         <h3>Starred Stops</h3>
@@ -48,7 +47,8 @@ class StarredStopsContainer extends Component {
 const mapStateToProps = (reduxState) => {
   return {
     user: reduxState.user,
-    direction: reduxState.direction
+    direction: reduxState.direction,
+    lines: reduxState.lines.all
   }
 }
 

@@ -1,7 +1,7 @@
 // will switch rendering between lines container and stop container
 import React, {Component} from 'react';
 import LinesContainer from './LinesContainer';
-import StopsContainer from './StopsContainer'
+import StopsContainer from './StopsContainer';
 
 class GeneralContainer extends Component {
 
@@ -25,7 +25,6 @@ class GeneralContainer extends Component {
           this.state.renderLines
           ?
           <LinesContainer
-            lines={ this.props.lines }
             handleRenderChange={ this.handleRenderChange }
           />
           :

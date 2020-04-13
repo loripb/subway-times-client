@@ -72,10 +72,10 @@ class Home extends Component {
               :
                 <>
                   <NavLink to="/login">
-                    <Menu.Item onClick={ this.handleHomeClick } >Log in</Menu.Item>
+                    <Menu.Item  >Log in</Menu.Item>
                   </NavLink>
                   <NavLink to="/signup">
-                    <Menu.Item onClick={ this.handleYourStopsClick } >Sign up</Menu.Item>
+                    <Menu.Item  >Sign up</Menu.Item>
                   </NavLink>
                 </>
             }
@@ -89,7 +89,7 @@ class Home extends Component {
               {
                 localStorage.token
                 ?
-                `Hello, ${this.props.username}`
+                `Hello, ${this.props.username}!`
                 :
                 "Sign in to save stops"
               }
@@ -100,9 +100,9 @@ class Home extends Component {
           {
             this.state.general
             ?
-              <GeneralContainer lines={ this.props.lines } triggerRender={ this.triggerRender } />
+              <GeneralContainer />
             :
-              <StarredStopsContainer triggerRender={ this.triggerRender } />
+              <StarredStopsContainer />
           }
         </Container>
 

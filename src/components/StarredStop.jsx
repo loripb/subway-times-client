@@ -12,8 +12,6 @@ class StarredStop extends Component {
     fullStop: undefined
   }
 
-
-
   handleClick = () => {
     fetch(`http://localhost:4000/stops/${this.props.stop.id}`)
     .then(r => r.json())
@@ -43,7 +41,6 @@ class StarredStop extends Component {
           let trainMin = trainTime.getMinutes()
           let currentHour = timeNow.getHours() > 12? timeNow.getHours() - 12 : timeNow.getHours()
           let currentMin = timeNow.getMinutes()
-          console.log(`current time: ${currentHour}:${currentMin}`, `Train arrival: ${trainHour}:${trainMin}`);
 
           // if trainHour is > current hour add 60 mins to trainMin
           if (trainHour > currentHour) {
@@ -127,7 +124,8 @@ class StarredStop extends Component {
 const mapStateToProps = (reduxState) => {
   return {
     user: reduxState.user,
-    direction: reduxState.direction
+    direction: reduxState.direction,
+    lines: reduxState.lines.all
   }
 }
 

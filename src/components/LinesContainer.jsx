@@ -1,36 +1,21 @@
 import React, { Component } from 'react';
 import LineCard from './LineCard'
-import { List, Grid } from 'semantic-ui-react'
+import { List, Grid } from 'semantic-ui-react';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class LinesContainer extends Component {
 
-  state = {
-    lines: []
-  }
-
-  componentDidMount(){
-    // Fetch all subway lines
-    fetch("http://localhost:4000/lines")
-    .then(r => r.json())
-    .then(data => {
-      let lines = data.data
-
-      this.setState({
-        lines: lines
-      })
-    })
-  }
-
   renderLines = () => {
     // set colums
-    const colum1 = this.state.lines.slice(0, 3)
-    const colum2 = this.state.lines.slice(3, 6)
-    const colum3 = this.state.lines.slice(6, 9)
-    const colum4 = this.state.lines.slice(9, 12)
-    const colum5 = this.state.lines.slice(12, 15)
-    const colum6 = this.state.lines.slice(15, 18)
-    const colum7 = this.state.lines.slice(18, 21)
-    const colum8 = this.state.lines.slice(21)
+    const colum1 = this.props.lines.slice(0, 3)
+    const colum2 = this.props.lines.slice(3, 6)
+    const colum3 = this.props.lines.slice(6, 9)
+    const colum4 = this.props.lines.slice(9, 12)
+    const colum5 = this.props.lines.slice(12, 15)
+    const colum6 = this.props.lines.slice(15, 18)
+    const colum7 = this.props.lines.slice(18, 21)
+    const colum8 = this.props.lines.slice(21)
 
     // set rows
     const row1 = () => {
@@ -133,4 +118,12 @@ class LinesContainer extends Component {
 
 }
 
-export default LinesContainer;
+const mapStateToProps = (reduxState) => {
+  return {
+    lines: reduxState.lines.all
+  }
+}
+
+export default withRouter(
+  connect(mapStateToProps)(LinesContainer)
+)
