@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Grid, Icon } from 'semantic-ui-react'
 
 const LineCard = ({ handleRenderChange, line }) => {
