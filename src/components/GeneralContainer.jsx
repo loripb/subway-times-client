@@ -1,43 +1,35 @@
 // will switch rendering between lines container and stop container
-import React, {Component} from 'react';
+import React, { useState } from 'react';
 import LinesContainer from './LinesContainer';
 import StopsContainer from './StopsContainer';
 
-class GeneralContainer extends Component {
+const GeneralContainer = () => {
 
-  state = {
-    line: undefined,
-    renderLines: true
+  const [renderLines, setRenderLines] = useState(true)
+  const [line, setLine] = useState(undefined)
+
+  const handleRenderChange = (lineObj) => {
+    setLine(lineObj)
+    setRenderLines(!renderLines)
   }
 
-  handleRenderChange = (lineObj) => {
-    this.setState({
-      line: lineObj,
-      renderLines: !this.state.renderLines
-    })
-  }
-
-  render() {
-    return (
-      <>
-        <h1>Subway Lines</h1>
-        {
-          this.state.renderLines
-          ?
-          <LinesContainer
-            handleRenderChange={ this.handleRenderChange }
-          />
-          :
-          <StopsContainer
-            line={ this.state.line }
-            handleRenderChange={ this.handleRenderChange }
-            triggerRender={ this.props.triggerRender }
-          />
-        }
-      </>
-    );
-  }
-
+  return (
+    <>
+      <h1>Subway Lines</h1>
+      {
+        renderLines
+        ?
+        <LinesContainer
+          handleRenderChange={ handleRenderChange }
+        />
+        :
+        <StopsContainer
+          line={ line }
+          handleRenderChange={ handleRenderChange }
+        />
+      }
+    </>
+  );
 }
 
 export default GeneralContainer;
