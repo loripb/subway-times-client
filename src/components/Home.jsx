@@ -57,7 +57,7 @@ class Home extends Component {
               <Image size='mini' src='/train-logo-png-8.png' style={{ marginRight: '1.5em' }} />
               Subway Times
             </Menu.Item>
-            <Menu.Item onClick={ this.handleHomeClick } >Home</Menu.Item>
+            <Menu.Item onClick={ this.handleHomeClick } >Subway Lines</Menu.Item>
             <Menu.Item onClick={ this.handleYourStopsClick } >Your Stops</Menu.Item>
           </Container >
           <Container></Container>
