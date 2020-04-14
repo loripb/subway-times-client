@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import {Switch, Route} from 'react-router-dom';
-import { withRouter } from 'react-router-dom'
-import App from '../App'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 
 class FormContainer extends Component {
@@ -11,46 +8,49 @@ class FormContainer extends Component {
     password: ""
   }
 
-  handleSubmit = (e) => {
+  handleSubmitButton = (e) => {
     e.preventDefault()
     this.props.handleSubmit(this.state)
-    return <App />
   }
 
   handleChange = (e) => {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.placeholder]: e.target.value
     })
   }
 
   render() {
-    let { username, password } = this.state
-
     return (
         <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
           <Grid.Column style={{ maxWidth: 450 }}>
-            <Header as='h2' color='dark blue' textAlign='center'>
-              <Image src='/logo192.png' /> Log-in to your account
+            <Header as='h2' color='blue' textAlign='center'>
+              <Image src='/logo192.png' /> { this.props.formName }
             </Header>
-            <Form size='large' onSubmit={ this.handleSubmit }>
+            <Form size='large' onSubmit={ this.handleSubmitButton }>
               <Segment stacked>
-                <Form.Input onChange={ this.handleChange }fluid icon='user' iconPosition='left' placeholder='Username' />
+                <Form.Input onChange={ this.handleChange }fluid icon='user' iconPosition='left' placeholder='username' />
                 <Form.Input
                   fluid
                   onChange={ this.handleChange }
                   icon='lock'
                   iconPosition='left'
-                  placeholder='Password'
+                  placeholder='password'
                   type='password'
                 />
 
               <Button color='blue' fluid size='large'>
-                  Login
+                  { this.props.formName }
                 </Button>
               </Segment>
             </Form>
             <Message>
-              New to us? <a href='#'>Sign Up</a>
+              {
+                this.props.formName === "Login"
+                ?
+                <div>New to us? <a href='http://localhost:3000/signup'>Sign Up</a></div>
+                :
+                <div>Already have an account? <a href='http://localhost:3000/login'>Login</a></div>
+              }
             </Message>
           </Grid.Column>
         </Grid>

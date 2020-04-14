@@ -8,8 +8,14 @@ import { BrowserRouter } from 'react-router-dom'
 import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 
-let rootReducer = combineReducers({
+import userReducer from './Redux/userReducer'
+import lineReducer from './Redux/lineReducer'
+import directionReducer from './Redux/directionReducer'
 
+let rootReducer = combineReducers({
+  user: userReducer,
+  lines: lineReducer,
+  direction: directionReducer
 })
 
 let storeObject = createStore(
@@ -20,9 +26,11 @@ let storeObject = createStore(
 
 ReactDOM.render(
   <Provider store={ storeObject }>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <BrowserRouter>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </BrowserRouter>
   </Provider>,
   document.getElementById('root')
 );
