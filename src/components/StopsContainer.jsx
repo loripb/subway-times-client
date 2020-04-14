@@ -5,26 +5,25 @@ import { changeDirection } from '../Redux/actions'
 import StopCard from './StopCard'
 import { List, Icon } from 'semantic-ui-react'
 
-const StopsContainer = ({ line, handleRenderChange }, props) => {
+const StopsContainer = (props) => {
 
   const handleDirectionChange = () => {
     props.changeDirection()
   }
 
   const renderStops = () => {
-    return line.stops.map(stopObj => {
+    return props.line.stops.map(stopObj => {
       return <StopCard
         key={ stopObj.id }
-        line={ line }
+        line={ props.line }
         stop={ stopObj }
-        triggerRender={ props.triggerRender }
       />
     })
   }
 
   return (
     <div className="stop_container">
-      <h2>{ line.name } Train Stops { props.direction === "N" ? "Uptown" : "Downtown" }</h2>
+      <h2>{ props.direction === "N" ? "Uptown" : "Downtown" } { props.line.name } Train Stops </h2>
       <Icon className='exchange' onClick={ handleDirectionChange } color="orange" size='large'/>
       <List celled relaxed='very'>
         { renderStops() }
