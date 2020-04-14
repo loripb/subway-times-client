@@ -44,6 +44,7 @@ class StopCard extends Component {
     fetch(`http://localhost:4000/lines/${this.props.line.id}`)
     .then(r => r.json())
     .then((line) => {
+
       // diggs through feed to find the arrays with the arrival times
       let feed = line.feed.filter( obj => Object.keys(obj).includes("trip_update"))
       let includesStopTimeUpdate = feed.filter(obj => Object.keys(obj.trip_update).includes("stop_time_update"))
@@ -67,7 +68,6 @@ class StopCard extends Component {
         let trainMin = trainTime.getMinutes()
         let currentHour = timeNow.getHours() > 12? timeNow.getHours() - 12 : timeNow.getHours()
         let currentMin = timeNow.getMinutes()
-        console.log(`current time: ${currentHour}:${currentMin}`, `Train arrival: ${trainHour}:${trainMin}`);
 
         // if trainHour is > current hour add 60 mins to trainMin
         if (trainHour > currentHour) {
@@ -80,7 +80,7 @@ class StopCard extends Component {
 
       this.setState({
         renderStopInfo: !this.state.renderStopInfo,
-        arrivals: trainArrivalObjs
+        arrivals: trainArrivalObjs,
       })
     })
   }
@@ -96,12 +96,17 @@ class StopCard extends Component {
       },
       body: JSON.stringify({
         user_id: user.id,
-        stop_id: this.state.stopObj.id
+        stop_id: this.state.stopObj.id,
+        line_id: this.props.line.id
       })
     })
     .then(r => r.json())
     .then(data => {
+      console.log(data, "from stopcard");
+      // puts the exact train in the stopObj
+      let newStop = {...this.state.stopObj, line: this.props.line.name}
       let updatedStops = [...this.props.user.user_stops, this.state.stopObj]
+      console.log(updatedStops);
       let updatedStarred = [...this.props.user.starred_stops, {id: data.starred_stop.id}]
       let updatedUser = {
         ...this.props.user,
@@ -146,7 +151,15 @@ class StopCard extends Component {
           </List.Item>
           :
           <List.Item>
-            <Icon onClick={ this.handleStarClick } name='star' color="yellow"/>
+            <Popup
+              trigger={<Icon onClick={ this.handleStarClick } name='star' color="yellow"/>}
+              content={`Starred!`}
+              on='click'
+              open={this.state.isOpen}
+              onClose={this.handleClose}
+              onOpen={this.handleOpen}
+              position='top center'
+            />
             <List.Content onClick={ this.handleClick }>
               <List.Header>{ this.state.stopObj.name }</List.Header>
             </List.Content>

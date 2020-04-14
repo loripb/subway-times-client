@@ -9,7 +9,19 @@ class StarredStop extends Component {
   state = {
     renderStopInfo: false,
     arrivals: [],
-    fullStop: undefined
+    fullStop: undefined,
+    starredStop: undefined
+  }
+
+  componentDidMount(){
+    fetch("http://localhost:4000/starred_stops")
+    .then(r => r.json())
+    .then(starredStops => {
+      let starredObj = starredStops.find(starredStop => starredStop.stop.id === this.props.stop.id)
+      if (starredObj.user.username === this.props.user.username) {
+        this.setState({starredStop: starredObj})
+      }
+    })
   }
 
   handleClick = () => {
@@ -103,7 +115,7 @@ class StarredStop extends Component {
             <List.Content>
               <List.Header onClick={ this.handleClick }>{ this.props.stop.name } || { this.props.direction.direction === "N" ? "Uptown" : "Downtown" }</List.Header>
               <List.Description>
-                <h5>{ this.state.arrivals[0] }mins, { this.state.arrivals[1] }mins, { this.state.arrivals[2] }mins</h5>
+                <h5>{ this.state.starredStop.line.name } train arriving in: { this.state.arrivals[0] }mins, { this.state.arrivals[1] }mins, { this.state.arrivals[2] }mins</h5>
               </List.Description>
             </List.Content>
           </List.Item>

@@ -25,8 +25,7 @@ class App extends React.Component {
 
     fetch("http://localhost:4000/lines")
     .then(r => r.json())
-    .then((resp) => {
-      let lines = resp.data
+    .then((lines) => {
       this.props.setAlllines(lines)
     })
   }

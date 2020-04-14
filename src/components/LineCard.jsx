@@ -12,7 +12,7 @@ class LineCard extends Component {
   render() {
     return (
       <Grid.Column onClick={ this.handleClick } >
-        <h2>{this.props.line.attributes.name}</h2><Icon name='train' color='orange'/>
+        <h2>{this.props.line.name}</h2><Icon name='train' color='orange'/>
       </Grid.Column>
     );
   }

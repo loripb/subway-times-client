@@ -18,10 +18,10 @@ class StopsContainer extends Component {
   }
 
   renderStops = () => {
-    return this.props.line.relationships.stops.data.map(stopObj => {
+    return this.props.line.stops.map(stopObj => {
       return <StopCard
                 key={ stopObj.id }
-                line={ this.props.line.attributes }
+                line={ this.props.line }
                 stop={ stopObj }
                 triggerRender={ this.props.triggerRender }
               />
@@ -32,7 +32,7 @@ class StopsContainer extends Component {
   render() {
     return (
       <div className="stop_container">
-        <h2>{ this.props.line.attributes.name } Train Stops { this.props.direction === "N" ? "Uptown" : "Downtown" }</h2>
+        <h2>{ this.props.line.name } Train Stops { this.props.direction === "N" ? "Uptown" : "Downtown" }</h2>
         <Icon className='exchange' onClick={ this.handleDirectionChange } color="orange" size='large'/>
         <List celled relaxed='very'>
           { this.renderStops() }
