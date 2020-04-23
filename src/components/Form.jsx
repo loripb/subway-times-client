@@ -47,9 +47,9 @@ class FormContainer extends Component {
               {
                 this.props.formName === "Login"
                 ?
-                <div>New to us? <a href='http://localhost:3000/signup'>Sign Up</a></div>
+                <div>New to us? <a href='https://subwaytimes.herokuapp.com/signup'>Sign Up</a></div>
                 :
-                <div>Already have an account? <a href='http://localhost:3000/login'>Login</a></div>
+                <div>Already have an account? <a href='https://subwaytimes.herokuapp.com/login'>Login</a></div>
               }
             </Message>
           </Grid.Column>

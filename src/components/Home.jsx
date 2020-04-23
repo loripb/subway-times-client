@@ -35,7 +35,7 @@ const Home = (props) => {
     <div>
       <Menu fixed='top'>
         <Container>
-          <Menu.Item as='a' href='http://localhost:3000' header>
+          <Menu.Item as='a' href='https://subwaytimes.herokuapp.com/' header>
             <Image size='mini' src='/icons/train-logo-png-8.png' style={{ marginRight: '1.5em' }} />
             Subway Times
           </Menu.Item>
