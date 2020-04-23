@@ -4,7 +4,7 @@
   "description": "A real-time subway arrival time tracker Progressive Web App"
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "favicon.ico.png",
       "sizes": "16x16",
       "type": "image/x-icon"
     },
