@@ -5,7 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from 'react-router-dom'
 
-import { createStore, combineReducers } from 'redux'
+import { createStore, combineReducers, compose } from 'redux'
 import { Provider } from 'react-redux'
 
 import userReducer from './Redux/userReducer'
@@ -18,10 +18,13 @@ let rootReducer = combineReducers({
   direction: directionReducer
 })
 
-let storeObject = createStore(
-  rootReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-)
+function setStore(){
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+  return createStore(rootReducer, composeEnhancers())
+}
+
+let storeObject = setStore()
 
 
 ReactDOM.render(
