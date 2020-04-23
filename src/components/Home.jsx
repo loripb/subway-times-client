@@ -28,7 +28,7 @@ const Home = (props) => {
   }
 
   const handleHomeClick = () => {
-    window.location.reload()
+    setGeneral(true)
   }
   return(
     <>
@@ -36,7 +36,7 @@ const Home = (props) => {
       <Menu fixed='top'>
         <Container>
           <Menu.Item as='a' href='http://localhost:3000' header>
-            <Image size='mini' src='/train-logo-png-8.png' style={{ marginRight: '1.5em' }} />
+            <Image size='mini' src='/icons/train-logo-png-8.png' style={{ marginRight: '1.5em' }} />
             Subway Times
           </Menu.Item>
           <Menu.Item onClick={ handleHomeClick } >Subway Lines</Menu.Item>
@@ -128,7 +128,7 @@ const Home = (props) => {
         </Grid>
 
         <Divider section />
-        <Image centered size='mini' src='/train-logo-png-8.png' />
+        <Image centered size='mini' src='/icons/train-logo-png-8.png' />
         <List horizontal divided link size='small' id="footer">
           <List.Item as='a' href='#'>
             Site Map
