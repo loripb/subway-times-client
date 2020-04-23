@@ -1,0 +1,31 @@
+{
+  "short_name": "Subway Times",
+  "name": "Subway Times",
+  "description": "A real-time subway arrival time tracker Progressive Web App"
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "./icons/train-logo-32",
+      "type": "image/png",
+      "sizes": "32x32"
+    },
+    {
+      "src": "./icons/train-logo-192",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "./icons/train-logo-512",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/subway-times-client/public/index.html",
+  "display": "fullscreen",
+  "theme_color": "#0F2027",
+  "background_color": "#0F2027"
+}

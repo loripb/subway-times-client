@@ -7,6 +7,10 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setUserInformation, setAlllines } from './Redux/actions'
 
+// Registering Service Worker
+if('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js');
+};
 
 class App extends React.Component {
 
