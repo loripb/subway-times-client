@@ -78,6 +78,8 @@ const Home = (props) => {
           </Header>
           <p>Select a subway line to view stops.</p>
           <p>Starring a stop will save them to your account.</p>
+          <p>COMING SOON: BDFM, ACES, 123, 456, S, and W lines.</p>
+
         </Segment>
         {
           general
