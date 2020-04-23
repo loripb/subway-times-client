@@ -14,7 +14,7 @@ class StarredStop extends Component {
   }
 
   componentDidMount(){
-    fetch("http://localhost:4000/starred_stops")
+    fetch("https://subway-times-api.herokuapp.com/starred_stops")
     .then(r => r.json())
     .then(starredStops => {
       let starredObj = starredStops.find(starredStop => starredStop.stop.id === this.props.stop.id)
@@ -25,11 +25,11 @@ class StarredStop extends Component {
   }
 
   handleClick = () => {
-    fetch(`http://localhost:4000/stops/${this.props.stop.id}`)
+    fetch(`https://subway-times-api.herokuapp.com/stops/${this.props.stop.id}`)
     .then(r => r.json())
     .then(data => {
       // fetch here
-      fetch(`http://localhost:4000/lines/${data.lines[0].id}`)
+      fetch(`https://subway-times-api.herokuapp.com/lines/${data.lines[0].id}`)
       .then(r => r.json())
       .then((line) => {
         // diggs through feed to find the arrays with the arrival times
@@ -82,7 +82,7 @@ class StarredStop extends Component {
 
     this.props.editUserInformation(updatedUser)
 
-    fetch(`http://localhost:4000/starred_stops/${starredStop.id}`, {
+    fetch(`https://subway-times-api.herokuapp.com/starred_stops/${starredStop.id}`, {
       method: "DELETE"
     })
 
@@ -91,7 +91,7 @@ class StarredStop extends Component {
   handleDelete = () => {
     // fetch all starred stops then match with stop id
     // delete
-    fetch("http://localhost:4000/starred_stops/")
+    fetch("https://subway-times-api.herokuapp.com/starred_stops/")
     .then(r => r.json())
     .then(data => {
       let collection = []

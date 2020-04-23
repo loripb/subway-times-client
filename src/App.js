@@ -16,7 +16,7 @@ class App extends React.Component {
 
   componentDidMount() {
     if (localStorage.token) {
-      fetch("http://localhost:4000/persist", {
+      fetch("https://subway-times-api.herokuapp.com/persist", {
         headers: {
           "Authorization": `bearer ${localStorage.token}`
         }
@@ -27,7 +27,7 @@ class App extends React.Component {
       })
     }
 
-    fetch("http://localhost:4000/lines")
+    fetch("https://subway-times-api.herokuapp.com/lines")
     .then(r => r.json())
     .then((lines) => {
       this.props.setAlllines(lines)
@@ -37,7 +37,7 @@ class App extends React.Component {
   handleLoginSubmit = (userInfo) => {
 
     //
-    fetch("http://localhost:4000/login", {
+    fetch("https://subway-times-api.herokuapp.com/login", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -56,7 +56,7 @@ class App extends React.Component {
   }
 
   handleRegisterSubmit = (userInfo) => {
-    fetch("http://localhost:4000/users", {
+    fetch("https://subway-times-api.herokuapp.com/users", {
       method: "POST",
       headers: {
         "content-type": "application/json"

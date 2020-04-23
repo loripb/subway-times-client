@@ -31,7 +31,7 @@ class StopCard extends Component {
 
   componentDidMount(){
 
-    fetch(`http://localhost:4000/stops/${this.props.stop.id}`)
+    fetch(`https://subway-times-api.herokuapp.com/stops/${this.props.stop.id}`)
     .then(r => r.json())
     .then(data => this.setState({
       stopObj: data.stop
@@ -41,7 +41,7 @@ class StopCard extends Component {
 
   handleClick = () => {
     // fetch here
-    fetch(`http://localhost:4000/lines/${this.props.line.id}`)
+    fetch(`https://subway-times-api.herokuapp.com/lines/${this.props.line.id}`)
     .then(r => r.json())
     .then((line) => {
 
@@ -88,7 +88,7 @@ class StopCard extends Component {
   addOneStarStop = (usersArray) => {
     let user = usersArray.find(userObj => userObj.username === this.props.user.username)
 
-    fetch('http://localhost:4000/starred_stops', {
+    fetch('https://subway-times-api.herokuapp.com/starred_stops', {
       method: "POST",
       headers: {
         'content-type': 'application/json',
@@ -120,7 +120,7 @@ class StopCard extends Component {
 
   handleStarClick = () => {
     // fetch all users
-    fetch("http://localhost:4000/users/")
+    fetch("https://subway-times-api.herokuapp.com/users/")
     .then(r => r.json())
     // use username to match user obj
     .then(usersArray => this.addOneStarStop(usersArray))
