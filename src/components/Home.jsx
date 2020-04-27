@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
-import {connect} from 'react-redux'
-import {NavLink} from 'react-router-dom'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import GeneralContainer from './GeneralContainer'
 import StarredStopsContainer from './StarredStopsContainer'
 import LogoutModal from './LogoutModal'
@@ -38,21 +38,23 @@ const Home = (props) => {
           </Menu.Item>
           <Menu.Item onClick={ handleHomeClick } >Subway Lines</Menu.Item>
           <Menu.Item onClick={ handleYourStopsClick } >Your Stops</Menu.Item>
-        </Container >
 
-        <Container>
           {
             localStorage.token
             ?
               <LogoutModal />
             :
               <>
-                <NavLink to="/login">
-                  <Menu.Item  >Log in</Menu.Item>
-                </NavLink>
-                <NavLink to="/signup">
-                  <Menu.Item  >Sign up</Menu.Item>
-                </NavLink>
+                <Menu.Item  >
+                  <Link to="/login">
+                    Log in
+                  </Link>
+                </Menu.Item>
+                <Menu.Item>
+                  <Link to="/signup">
+                    Sign up
+                  </Link>
+                </Menu.Item>
               </>
           }
         </Container>
