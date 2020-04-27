@@ -30,7 +30,7 @@ const Home = (props) => {
   return(
     <>
     <div>
-      <Menu fixed='top'>
+      <Menu fluid stackable >
         <Container>
           <Menu.Item as='a' href='https://subwaytimes.herokuapp.com/' header>
             <Image size='mini' src='/icons/train-logo-png-8.png' style={{ marginRight: '1.5em' }} />

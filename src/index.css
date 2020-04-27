@@ -21,10 +21,12 @@ div.ui.text.container {
 
 }
 
-div.ui.stacked.segment, div.ui.top.fixed.menu {
+div.ui.stacked.segment, div.ui.fluid.stackable.menu {
   background-color: darkgrey;
-  border-radius: 12px;
+}
 
+div.ui.stacked.segment {
+  border-radius: 12px;
 }
 
 div.ui.center.aligned.container {
