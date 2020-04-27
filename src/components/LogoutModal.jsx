@@ -5,18 +5,18 @@ import { logOut } from '../Redux/actions'
 import { Menu, Confirm } from 'semantic-ui-react'
 
 class LogoutModal extends Component {
-state = { open: false, result: 'show the modal to capture a result' }
+state = { open: false }
 
   show = () => this.setState({ open: true })
   handleConfirm = () => {
     localStorage.clear()
     this.props.logOut()
-    this.setState({ result: 'confirmed', open: false })
+    this.setState({ open: false })
   }
   handleCancel = () => this.setState({ result: 'cancelled', open: false })
 
   render() {
-    const { open, result } = this.state
+    const { open } = this.state
 
     return (
       <div>

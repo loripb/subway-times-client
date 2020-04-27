@@ -1,6 +1,6 @@
 import React from 'react';
 import LineCard from './LineCard'
-import { List, Grid } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 

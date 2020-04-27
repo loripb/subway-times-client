@@ -8,15 +8,12 @@ import LogoutModal from './LogoutModal'
 import {
   Container,
   Divider,
-  Dropdown,
   Grid,
   Header,
   Image,
   List,
   Menu,
-  Segment,
-  Dimmer,
-  Loader
+  Segment
 } from 'semantic-ui-react'
 
 const Home = (props) => {
@@ -42,10 +39,7 @@ const Home = (props) => {
           <Menu.Item onClick={ handleHomeClick } >Subway Lines</Menu.Item>
           <Menu.Item onClick={ handleYourStopsClick } >Your Stops</Menu.Item>
         </Container >
-        <Container></Container>
-        <Container></Container>
-        <Container></Container>
-        <Container></Container>
+
         <Container>
           {
             localStorage.token
@@ -107,7 +101,7 @@ const Home = (props) => {
             <Header inverted as='h4' />
             <List link inverted>
               <List.Item as='a'></List.Item>
-              <List.Item as='a' href='#'>Lori Boyd</List.Item>
+              <List.Item as='a' href='https://loripboyd.wixsite.com/lori-lei-boyd'>Lori Boyd</List.Item>
               <List.Item as='a'></List.Item>
               <List.Item as='a'></List.Item>
             </List>

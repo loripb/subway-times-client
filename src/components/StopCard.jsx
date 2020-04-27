@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { editUserInformation } from '../Redux/actions'
-import { List, Icon, Button, Popup } from 'semantic-ui-react';
+import { List, Icon, Popup } from 'semantic-ui-react';
 
 const timeoutLength = 2500
 
@@ -104,7 +104,6 @@ class StopCard extends Component {
     .then(data => {
       console.log(data, "from stopcard");
       // puts the exact train in the stopObj
-      let newStop = {...this.state.stopObj, line: this.props.line.name}
       let updatedStops = [...this.props.user.user_stops, this.state.stopObj]
       console.log(updatedStops);
       let updatedStarred = [...this.props.user.starred_stops, {id: data.starred_stop.id}]

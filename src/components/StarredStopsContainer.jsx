@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { changeDirection } from '../Redux/actions'
 import { withRouter } from 'react-router-dom';
 import StarredStop from './StarredStop';
-import { List, Button, Icon, Image } from 'semantic-ui-react';
+import { List, Icon } from 'semantic-ui-react';
 
 const StarredStopsContainer = (props) => {
 
