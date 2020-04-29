@@ -74,7 +74,7 @@ const Home = (props) => {
           </Header>
           <p>Select a subway line to view stops.</p>
           <p>Starring a stop will save them to your account.</p>
-          <p>COMING SOON: BDFM, 123, 456, S, and W lines.</p>
+          <p>COMING SOON: M, 123, 456, and W lines.</p>
 
         </Segment>
         {
