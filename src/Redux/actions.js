@@ -12,6 +12,13 @@ export const setAlllines = (linesArr) => {
   }
 }
 
+export const setAllStops = (stopsArr) => {
+  return {
+    type: "SET_ALL_STOPS",
+    payload: stopsArr
+  }
+}
+
 export const editUserInformation = (updatedUser) => {
   return {
     type: "EDIT_USER_INFORMATION",
