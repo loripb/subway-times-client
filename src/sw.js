@@ -2,14 +2,20 @@
 // Files to cache
 var cacheName = 'subwaytimes-v1';
 var appShellFiles = [
-  '/pwa-examples/src/',
-  '/pwa-examples/public/index.html',
-  '/pwa-examples/src/app.js',
-  '/pwa-examples/src/index.css',
-  '/pwa-examples/public/favicon.ico',
-  '/pwa-examples/public/icons/icon-32.png',
-  '/pwa-examples/public/icons/icon-192.png',
-  '/pwa-examples/public/icons/icon-512.png'
+  '/subway-times-client/src/',
+  '/subway-times-client/public/index.html',
+  '/subway-times-client/src/app.js',
+  '/subway-times-client/src/Redux/actions.js',
+  '/subway-times-client/src/Redux/directionReducer.js',
+  '/subway-times-client/src/Redux/lineReducer.js',
+  '/subway-times-client/src/Redux/stopReducer.js',
+  '/subway-times-client/src/Redux/userReducer.js',
+  '/subway-times-client/src/index.js',
+  '/subway-times-client/src/index.css',
+  '/subway-times-client/public/favicon.ico',
+  '/subway-times-client/public/icons/icon-32.png',
+  '/subway-times-client/public/icons/icon-192.png',
+  '/subway-times-client/public/icons/icon-512.png'
 ];
 
 // Installing Service Worker
@@ -21,4 +27,9 @@ self.addEventListener('install', (e) => {
         return cache.addAll(appShellFiles);
       })
     );
+});
+
+// fetching Lines
+self.addEventListener('fetch', (e) => {
+  console.log('[Service Worker] Fetched resource '+e.request.url);
 });

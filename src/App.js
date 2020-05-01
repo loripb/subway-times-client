@@ -5,12 +5,12 @@ import Home from './components/Home'
 import { Switch, Route } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setUserInformation, setAlllines } from './Redux/actions'
+import { setUserInformation, setAlllines, setAllStops } from './Redux/actions'
 
 // Registering Service Worker
-if('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js');
-};
+// if('serviceWorker' in navigator) {
+//     navigator.serviceWorker.register('./sw.js');
+// };
 
 class App extends React.Component {
 
@@ -31,6 +31,12 @@ class App extends React.Component {
     .then(r => r.json())
     .then((lines) => {
       this.props.setAlllines(lines)
+    })
+
+    fetch("https://subway-times-api.herokuapp.com/stops")
+    .then(r => r.json())
+    .then((stops) => {
+      this.props.setAllStops(stops)
     })
   }
 
@@ -116,5 +122,5 @@ const mapStateToProps = (reduxState) => {
 }
 
 export default withRouter(
-  connect(mapStateToProps, {setUserInformation, setAlllines})(App)
+  connect(mapStateToProps, { setUserInformation, setAlllines, setAllStops })(App)
 )

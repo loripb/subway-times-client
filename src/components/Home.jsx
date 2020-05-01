@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import Search from './Search'
 import GeneralContainer from './GeneralContainer'
 import StarredStopsContainer from './StarredStopsContainer'
 import LogoutModal from './LogoutModal'
@@ -19,6 +20,8 @@ import {
 const Home = (props) => {
 
   const [general, setGeneral] = useState(true);
+  const [renderSearch, setRenderSearch] = useState(false);
+
 
   const handleYourStopsClick = () => {
     setGeneral(false)
@@ -36,8 +39,8 @@ const Home = (props) => {
             <Image size='mini' src='/icons/train-logo-png-8.png' style={{ marginRight: '1.5em' }} />
             Subway Times
           </Menu.Item>
-          <Menu.Item onClick={ handleHomeClick } >Subway Lines</Menu.Item>
           <Menu.Item onClick={ handleYourStopsClick } >Your Stops</Menu.Item>
+          <Menu.Item onClick={ handleHomeClick } >Subway Lines</Menu.Item>
 
           {
             localStorage.token
@@ -74,8 +77,9 @@ const Home = (props) => {
           </Header>
           <p>Select a subway line to view stops.</p>
           <p>Starring a stop will save them to your account.</p>
-          <p>COMING SOON: M, 123, 456, and W lines.</p>
+          <p>COMING SOON: 123, 456</p>
 
+          <Search />
         </Segment>
         {
           general
@@ -150,7 +154,8 @@ const Home = (props) => {
 const mapStateToProps = (reduxState) => {
   return {
     token: reduxState.user.token,
-    username: reduxState.user.username
+    username: reduxState.user.username,
+    stops: reduxState.stops.all
   }
 }
 
