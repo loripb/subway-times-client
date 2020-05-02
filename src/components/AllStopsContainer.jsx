@@ -23,7 +23,7 @@ const AllStopsContainer = (props) => {
 
   const filterWithSearchParams = (stopsArr) => {
     // filter through new array with searchParams
-    const stopsWithSearch = searchParams ? stopsArr.filter(stop => stop.toLowerCase().includes(searchParams.toLowerCase())) : stopsArr
+    const stopsWithSearch = searchParams ? stopsArr.filter(stop => stop.toLowerCase().includes(searchParams.toLowerCase())) : []
     // remove duplicates
     return Array.from(new Set(stopsWithSearch))
   }
