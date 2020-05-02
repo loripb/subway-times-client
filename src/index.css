@@ -1,5 +1,5 @@
 * {
-  font-family: 'Raleway', sans-serif !important;
+  font-family: 'Raleway', sans-serif ;
 }
 body {
   margin: 0;
@@ -32,4 +32,8 @@ div.ui.stacked.segment {
 div.ui.center.aligned.container {
   background-color: darkgrey;
   border-radius: 12px;
+}
+
+.font {
+  font-family: 'Raleway', sans-serif ;
 }

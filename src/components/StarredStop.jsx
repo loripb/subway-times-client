@@ -117,9 +117,9 @@ class StarredStop extends Component {
           <List.Item>
             <Icon name='trash alternate outline' onClick={ this.handleDelete }/>
             <List.Content>
-              <List.Header onClick={ this.handleClick }>{ this.props.stop.name } || { this.props.direction.direction === "N" ? "Uptown" : "Downtown" }</List.Header>
+              <List.List className='font' onClick={ this.handleClick }>{ this.props.stop.name } || { this.props.direction.direction === "N" ? "Uptown" : "Downtown" }</List.List>
               <List.Description>
-                <h5>{ this.state.starredStop.line.name } train arriving in: { this.state.arrivals[0] }mins, { this.state.arrivals[1] }mins, { this.state.arrivals[2] }mins</h5>
+                <h5 className='font'>{ this.state.starredStop.line.name } train arriving in: { this.state.arrivals[0] }mins, { this.state.arrivals[1] }mins, { this.state.arrivals[2] }mins</h5>
               </List.Description>
             </List.Content>
           </List.Item>
@@ -127,7 +127,7 @@ class StarredStop extends Component {
           <List.Item>
             <Icon name='trash alternate outline' onClick={ this.handleDelete }/>
             <List.Content>
-              <List.Header onClick={ this.handleClick }>{ this.props.stop.name } || { this.props.direction.direction === "N" ? "Uptown" : "Downtown" }</List.Header>
+              <List.List className='font' onClick={ this.handleClick }>{ this.props.stop.name } || { this.props.direction.direction === "N" ? "Uptown" : "Downtown" }</List.List>
             </List.Content>
           </List.Item>
         }

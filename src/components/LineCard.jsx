@@ -9,7 +9,7 @@ const LineCard = ({ handleRenderChange, line }) => {
 
   return (
     <Grid.Column onClick={ handleClick } >
-      <h2>{line.name}</h2><Icon name='train' color='orange'/>
+      <h4 className='font'>{line.name}</h4>
     </Grid.Column>
   );
 }

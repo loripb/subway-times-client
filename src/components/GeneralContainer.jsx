@@ -15,7 +15,7 @@ const GeneralContainer = () => {
 
   return (
     <>
-      <h1>Subway Lines</h1>
+      <h1 className='font'>Subway Lines</h1>
       {
         renderLines
         ?

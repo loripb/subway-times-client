@@ -28,7 +28,7 @@ const StarredStopsContainer = (props) => {
       {
         props.user.starred_stops.length > 0
         ?
-        <List celled relaxed='very'>
+        <List celled relaxed='very' className='font'>
           {
             renderStops()
           }

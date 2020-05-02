@@ -153,10 +153,10 @@ class StopCard extends Component {
               onOpen={this.handleOpen}
               position='top center'
             />
-            <List.Content onClick={ this.handleClick }>
-              <List.Header>{ this.state.stopObj.name }</List.Header>
-              <List.Description>
-                <h5>{ this.state.arrivals.length > 0 ? `${this.isDue(this.state.arrivals[0])}, ${this.isDue(this.state.arrivals[1])}, ${this.isDue(this.state.arrivals[2])}` : `There are no arrivals for the ${this.props.line.name} line at this station.` }</h5>
+            <List.Content onClick={ this.handleClick } >
+              <List.List className='font'>{ this.state.stopObj.name }</List.List>
+              <List.Description className='font'>
+                <h5 className='font'>{ this.state.arrivals.length > 0 ? `${this.isDue(this.state.arrivals[0])}, ${this.isDue(this.state.arrivals[1])}, ${this.isDue(this.state.arrivals[2])}` : `There are no arrivals for the ${this.props.line.name} line at this station.` }</h5>
               </List.Description>
             </List.Content>
           </List.Item>
@@ -172,7 +172,7 @@ class StopCard extends Component {
               position='top center'
             />
             <List.Content onClick={ this.handleClick }>
-              <List.Header>{ this.state.stopObj.name }</List.Header>
+              <List.List className='font'>{ this.state.stopObj.name }</List.List>
             </List.Content>
           </List.Item>
         }

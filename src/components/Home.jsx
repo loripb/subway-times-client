@@ -38,6 +38,12 @@ const Home = (props) => {
     }
   }
 
+  const signedIn = () => {
+    if (localStorage.token){
+      return <Menu.Item>signed in as {props.username}</Menu.Item>
+    }
+  }
+
   return(
     <>
     <div>
@@ -50,6 +56,7 @@ const Home = (props) => {
           <Menu.Item onClick={ handleClick } >Search</Menu.Item>
           <Menu.Item onClick={ handleClick } >Subway Lines</Menu.Item>
           <Menu.Item onClick={ handleClick } >Your Stops</Menu.Item>
+          {signedIn()}
 
           {
             localStorage.token
@@ -75,15 +82,15 @@ const Home = (props) => {
 
       <Container text style={{ marginTop: '7em' }}>
         <Segment id="stacked" stacked>
-          <Header as='h1'>
+
             {
               localStorage.token
               ?
-              `Hello, ${props.username}!`
+              null
               :
-              "Sign in to save stops"
+              <p>Sign in to save stops</p>
             }
-          </Header>
+
           <p>Select a subway line to view stops.</p>
           <p>Starring a stop will save them to your account.</p>
           <p>COMING SOON: 123, 456</p>

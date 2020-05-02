@@ -23,9 +23,9 @@ const StopsContainer = (props) => {
 
   return (
     <div className="stop_container">
-      <h2>{ props.direction === "N" ? "Uptown" : "Downtown" } { props.line.name } Train Stops </h2>
+      <h2 className='font'>{ props.direction === "N" ? "Uptown" : "Downtown" } { props.line.name } Train Stops </h2>
       <Icon className='exchange' onClick={ handleDirectionChange } color="orange" size='large'/>
-      <List celled relaxed='very'>
+      <List celled relaxed='very' className='font'>
         { renderStops() }
       </List>
     </div>
