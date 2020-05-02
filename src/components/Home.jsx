@@ -27,7 +27,7 @@ const Home = (props) => {
 
   const renderContainer = () => {
     switch (render) {
-      case "All Stops":
+      case "Search":
         return <AllStopsContainer />
       case "Subway Lines":
         return <GeneralContainer />
@@ -47,7 +47,7 @@ const Home = (props) => {
             <Image size='mini' src='/icons/train-logo-png-8.png' style={{ marginRight: '1.5em' }} />
             Subway Times
           </Menu.Item>
-          <Menu.Item onClick={ handleClick } >All Stops</Menu.Item>
+          <Menu.Item onClick={ handleClick } >Search</Menu.Item>
           <Menu.Item onClick={ handleClick } >Subway Lines</Menu.Item>
           <Menu.Item onClick={ handleClick } >Your Stops</Menu.Item>
 

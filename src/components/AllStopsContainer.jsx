@@ -10,7 +10,6 @@ const AllStopsContainer = (props) => {
   const [ searchParams, setSearchParams ] = useState(undefined)
 
   const handleInputChange = (e) => {
-    console.dir(e.target.value);
     setSearchParams(e.target.value)
   }
 
@@ -45,7 +44,7 @@ const AllStopsContainer = (props) => {
     <>
       <Search handleInputChange={ handleInputChange }/>
 
-      <h2>Search Results</h2>
+      <h3>Search Results</h3>
 
       <List celled relaxed='very'>
         { renderStops() }

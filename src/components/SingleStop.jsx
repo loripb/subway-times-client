@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 const SingleStop = (props) => {
   return(
     <List.Item>
-      <List.Header>{ props.stopName }</List.Header>
+      <List.Content>{ props.stopName }</List.Content>
     </List.Item>
   )
 };
