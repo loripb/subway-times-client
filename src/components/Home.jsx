@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import Search from './Search'
 import GeneralContainer from './GeneralContainer'
 import StarredStopsContainer from './StarredStopsContainer'
+import AllStopsContainer from './AllStopsContainer'
 import LogoutModal from './LogoutModal'
 import {
   Container,
@@ -19,17 +19,25 @@ import {
 
 const Home = (props) => {
 
-  const [general, setGeneral] = useState(true);
-  const [renderSearch, setRenderSearch] = useState(false);
+  const [render, setRender] = useState("All Stops");
 
-
-  const handleYourStopsClick = () => {
-    setGeneral(false)
+  const handleClick = (e) => {
+    setRender(e.target.innerText)
   }
 
-  const handleHomeClick = () => {
-    setGeneral(true)
+  const renderContainer = () => {
+    switch (render) {
+      case "All Stops":
+        return <AllStopsContainer />
+      case "Subway Lines":
+        return <GeneralContainer />
+      case "Your Stops":
+        return <StarredStopsContainer />
+      default:
+        return <AllStopsContainer />
+    }
   }
+
   return(
     <>
     <div>
@@ -39,8 +47,9 @@ const Home = (props) => {
             <Image size='mini' src='/icons/train-logo-png-8.png' style={{ marginRight: '1.5em' }} />
             Subway Times
           </Menu.Item>
-          <Menu.Item onClick={ handleYourStopsClick } >Your Stops</Menu.Item>
-          <Menu.Item onClick={ handleHomeClick } >Subway Lines</Menu.Item>
+          <Menu.Item onClick={ handleClick } >All Stops</Menu.Item>
+          <Menu.Item onClick={ handleClick } >Subway Lines</Menu.Item>
+          <Menu.Item onClick={ handleClick } >Your Stops</Menu.Item>
 
           {
             localStorage.token
@@ -78,15 +87,9 @@ const Home = (props) => {
           <p>Select a subway line to view stops.</p>
           <p>Starring a stop will save them to your account.</p>
           <p>COMING SOON: 123, 456</p>
-
-          <Search />
         </Segment>
         {
-          general
-          ?
-            <GeneralContainer />
-          :
-            <StarredStopsContainer />
+          renderContainer()
         }
       </Container>
 

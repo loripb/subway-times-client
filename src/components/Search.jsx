@@ -1,9 +1,14 @@
 import React from 'react'
+import { Icon, Input } from 'semantic-ui-react'
 
-const Search = (props) => {
+const Search = ({handleInputChange}) => {
 
   return (
-    <p>Search</p>
+    <Input
+    icon={<Icon name='search' inverted circular link />}
+    placeholder='Search...'
+    onChange={ handleInputChange }
+    />
   );
 }
 

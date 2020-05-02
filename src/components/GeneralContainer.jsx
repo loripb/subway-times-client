@@ -5,8 +5,8 @@ import StopsContainer from './StopsContainer';
 
 const GeneralContainer = () => {
 
-  const [renderLines, setRenderLines] = useState(true)
-  const [line, setLine] = useState(undefined)
+  const [ renderLines, setRenderLines ] = useState(true)
+  const [ line, setLine ] = useState(undefined)
 
   const handleRenderChange = (lineObj) => {
     setLine(lineObj)
