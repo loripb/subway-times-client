@@ -19,14 +19,14 @@ state = { open: false }
     const { open } = this.state
 
     return (
-      <div>
+      <>
         <Menu.Item onClick={this.show} >Log out</Menu.Item>
         <Confirm
           open={open}
           onCancel={this.handleCancel}
           onConfirm={this.handleConfirm}
         />
-      </div>
+      </>
     )
   }
 }
