@@ -60,11 +60,15 @@ class StarredStop extends Component {
           }
 
           // take hour and min of train time and subtract each from the current time, if result is negative return 0
-          return Math.sign(trainMin - currentMin) === -1 ? 0 : trainMin - currentMin
+          return trainMin - currentMin
         })
+
+        // if train is due or has past remove
+        const arrivals = trainArrivalObjs.filter(time => time >= 0)
+
         this.setState({
           renderStopInfo: !this.state.renderStopInfo,
-          arrivals: trainArrivalObjs,
+          arrivals: arrivals
         })
       })
     })

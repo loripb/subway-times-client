@@ -75,12 +75,15 @@ class StopCard extends Component {
         }
 
         // take hour and min of train time and subtract each from the current time, if result is negative return 0
-        return Math.sign(trainMin - currentMin) === -1 ? 0 : trainMin - currentMin
+        return trainMin - currentMin
       })
+
+      // if train is due or has past remove
+      const arrivals = trainArrivalObjs.filter(time => time >= 0)
 
       this.setState({
         renderStopInfo: !this.state.renderStopInfo,
-        arrivals: trainArrivalObjs,
+        arrivals: arrivals
       })
     })
   }
@@ -125,7 +128,16 @@ class StopCard extends Component {
     .then(usersArray => this.addOneStarStop(usersArray))
   }
 
+  isDue = (time) => {
+    if (time === 0){
+      return `Due`
+    } else {
+      return `${time} mins`
+    }
+  }
+
   render(){
+    console.log(this.state.arrivals, this.props.stop.name, this.state.stopObj.stop_id + this.props.direction);
     return(
       <>
         {
@@ -144,7 +156,7 @@ class StopCard extends Component {
             <List.Content onClick={ this.handleClick }>
               <List.Header>{ this.state.stopObj.name }</List.Header>
               <List.Description>
-                <h5>{ this.state.arrivals[0] }mins, { this.state.arrivals[1] }mins, { this.state.arrivals[2] }mins</h5>
+                <h5>{ this.state.arrivals.length > 0 ? `${this.isDue(this.state.arrivals[0])}, ${this.isDue(this.state.arrivals[1])}, ${this.isDue(this.state.arrivals[2])}` : `There are no arrivals for the ${this.props.line.name} line at this station.` }</h5>
               </List.Description>
             </List.Content>
           </List.Item>
