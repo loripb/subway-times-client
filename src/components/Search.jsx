@@ -5,8 +5,8 @@ const Search = ({handleInputChange}) => {
 
   return (
     <Input
-    placeholder='Search...'
-    onChange={ handleInputChange }
+      placeholder='Search...'
+      onChange={ handleInputChange }
     />
   );
 }

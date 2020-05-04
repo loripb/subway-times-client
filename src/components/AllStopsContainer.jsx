@@ -31,7 +31,7 @@ const AllStopsContainer = (props) => {
 
     // map over that and compare to objs in stopsWithSearch
     // if the name matches with the obj make a new obj with the id as an array + add to it
-    let stopArr = (stopNames.map(stopName => stopsWithSearch.filter(stop2 => stop2.name == stopName)))
+    let stopArr = (stopNames.map(stopName => stopsWithSearch.filter(stop2 => stop2.name === stopName)))
     return stopArr
   }
 
@@ -41,9 +41,10 @@ const AllStopsContainer = (props) => {
     return filteredStops.map(stop => {
       return(
         <SingleStop
-          key={ stop[0].id }
+          key={ stop[0].stop_id }
           stopName={ stop[0].name }
-          stopId={ stop[0].stop_id }
+          id={ stop[0].id }
+          getFilteredStops={ getFilteredStops }
         />
       )
     })
