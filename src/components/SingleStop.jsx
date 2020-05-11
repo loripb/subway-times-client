@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { List } from 'semantic-ui-react';
+import { List, Icon } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import SingleStopLine from './SingleStopLine';
@@ -9,21 +9,24 @@ class SingleStop extends Component {
 
   state = {
     arrivals: [],
-    lines: []
+    lines: [],
+    render: false
   }
 
   callFetch = (stop) => {
-    // fetch the stop
-    fetch(`https://subway-times-api.herokuapp.com/stops/${stop.id}`)
-    .then(r => r.json())
-    .then(data => {
-      // grab the line ids from promise);
-      data.lines.map(line => {
-        this.setState({
-          lines: [...this.state.lines,line]
+    if (this.state.lines.length === 0) {
+      // fetch the stop
+      fetch(`https://subway-times-api.herokuapp.com/stops/${stop.id}`)
+      .then(r => r.json())
+      .then(data => {
+        // grab the line ids from promise);
+        data.lines.map(line => {
+          this.setState({
+            lines: [...this.state.lines,line]
+          })
         })
       })
-    })
+    }
   }
 
   // const removeExtraFeedIds = () => {
@@ -50,6 +53,9 @@ class SingleStop extends Component {
 
     // grab stop from line feed
     // add times to arrival state
+    this.setState({
+      render: !this.state.render
+    })
   }
 
   renderLines = () => {
@@ -57,17 +63,27 @@ class SingleStop extends Component {
       return <SingleStopLine
         key={ line.id }
         line={ line }
+        stop={ this.props.stop }
+        getFilteredStops={ this.props.getFilteredStops }
       />
     })
   }
 
+
+
   render(){
     return(
-      <List.Item onClick={ this.handleClick }>
-        <List.Content>{ this.props.stopName }</List.Content>
-        <List.List>
-          { this.renderLines() }
-        </List.List>
+      <List.Item>
+        <List.Content onClick={ this.handleClick } >{ this.props.stopName }</List.Content>
+        <List.Description>
+          {
+            this.state.render
+            ?
+              this.renderLines()
+            :
+              null
+          }
+        </List.Description>
       </List.Item>
     )
   }

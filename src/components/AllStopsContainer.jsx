@@ -44,6 +44,7 @@ const AllStopsContainer = (props) => {
           key={ stop[0].stop_id }
           stopName={ stop[0].name }
           id={ stop[0].id }
+          stop={ stop }
           getFilteredStops={ getFilteredStops }
         />
       )

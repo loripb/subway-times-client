@@ -40,6 +40,17 @@ class App extends React.Component {
     })
   }
 
+  renderForm = (routerProps) => {
+    if (this.props.token) {
+      return <h2>Already logged in as {this.props.username}</h2>
+    }
+    if(routerProps.location.pathname === "/login"){
+      return <Form formName="Login" handleSubmit={this.handleLoginSubmit} error={ undefined }/>
+    } else if (routerProps.location.pathname === "/signup") {
+      return <Form formName="Sign up" handleSubmit={this.handleRegisterSubmit} error={ undefined }/>
+    }
+  }
+
   handleLoginSubmit = (userInfo) => {
 
     //
@@ -74,26 +85,18 @@ class App extends React.Component {
     })
     .then(r => r.json())
     .then((resp) => {
-      localStorage.token = resp.token
-      this.props.setUserInformation(resp)
-      this.props.history.push("/")
+      if (resp.error) {
+        return resp.error
+      } else {
+        localStorage.token = resp.token
+        this.props.setUserInformation(resp)
+        this.props.history.push("/")
+      }
 
     })
 
-
-
   }
 
-  renderForm = (routerProps) => {
-    if (this.props.token) {
-      return <h2>Already logged in as {this.props.username}</h2>
-    }
-    if(routerProps.location.pathname === "/login"){
-      return <Form formName="Login" handleSubmit={this.handleLoginSubmit}/>
-    } else if (routerProps.location.pathname === "/signup") {
-      return <Form formName="Sign up" handleSubmit={this.handleRegisterSubmit}/>
-    }
-  }
 
   // renderProfile = (routerProps) => {
   //   return <ProfileContainer />

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { changeDirection } from '../Redux/actions'
+import { changeDirection } from '../Redux/actions';
 import { withRouter } from 'react-router-dom';
 import StarredStop from './StarredStop';
 import { List, Icon } from 'semantic-ui-react';

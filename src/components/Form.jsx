@@ -8,6 +8,10 @@ class FormContainer extends Component {
     password: ""
   }
 
+  handleErrors = (submitResponse) => {
+    console.log(submitResponse);
+  }
+
   handleSubmitButton = (e) => {
     e.preventDefault()
     this.props.handleSubmit(this.state)
