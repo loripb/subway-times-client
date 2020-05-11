@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { List, Icon, Popup } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { changeDirection } from '../Redux/actions';
+import { changeDirection, editUserInformation } from '../Redux/actions';
 
 const timeoutLength = 2500
 
 class LineStop extends Component {
 
   state = {
+    stop: undefined,
     arrivals: [],
     isOpen: false
   }
@@ -53,9 +54,11 @@ class LineStop extends Component {
 
       // if there are arrivals, set them in state
       if (arrivals.length > 0){
+        console.log(stopObj.id);
         this.setState({
           renderStopInfo: !this.state.renderStopInfo,
-          arrivals: arrivals
+          arrivals: arrivals,
+          stop: stopObj
         })
         console.log('ran setstate');
       }
@@ -76,14 +79,51 @@ class LineStop extends Component {
     clearTimeout(this.timeout)
   }
 
+  addOneStarStop = (usersArray) => {
+    let user = usersArray.find(userObj => userObj.username === this.props.user.username)
+
+    fetch('https://subway-times-api.herokuapp.com/starred_stops', {
+      method: "POST",
+      headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json'
+      },
+      body: JSON.stringify({
+        user_id: user.id,
+        stop_id: this.state.stop.id,
+        line_id: this.props.line.id
+      })
+    })
+    .then(r => r.json())
+    .then(data => {
+      console.log(data, "from stopcard");
+      // puts the exact train in the stopObj
+      let updatedStops = [...this.props.user.user_stops, this.state.stop]
+      console.log(updatedStops);
+      let updatedStarred = [...this.props.user.starred_stops, {id: data.starred_stop.id}]
+      let updatedUser = {
+        ...this.props.user,
+        user_stops: updatedStops,
+        starred_stops: updatedStarred
+      }
+
+      this.props.editUserInformation(updatedUser)
+    })
+  }
+
   handleDirectionChange = () => {
     this.props.changeDirection()
   }
 
   handleStarClick = () => {
-    console.log('clicked');
+    // fetch all users
+    fetch("https://subway-times-api.herokuapp.com/users/")
+    .then(r => r.json())
+    // use username to match user obj
+    .then(usersArray => this.addOneStarStop(usersArray))
   }
   render() {
+    // add is due function
     console.log(this.state, "FROM RENDER");
     return (
       <List.Item>
@@ -112,10 +152,11 @@ class LineStop extends Component {
 const mapStateToProps = (reduxState) => {
   return {
     allStops: reduxState.stops.all,
-    direction: reduxState.direction.direction
+    direction: reduxState.direction.direction,
+    user: reduxState.user
   }
 }
 
 export default withRouter(
-  connect(mapStateToProps, { changeDirection })(LineStop)
+  connect(mapStateToProps, { changeDirection, editUserInformation })(LineStop)
 )
