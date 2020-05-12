@@ -117,7 +117,7 @@ const Home = (props) => {
             <Header inverted as='h4' />
             <List link inverted>
               <List.Item as='a'></List.Item>
-              <List.Item as='a' href='https://loripboyd.wixsite.com/lori-lei-boyd'>Lori Boyd</List.Item>
+              <List.Item as='a' href='https://www.linkedin.com/in/lori-lei-boyd/'>Lori Boyd</List.Item>
               <List.Item as='a'></List.Item>
               <List.Item as='a'></List.Item>
             </List>
