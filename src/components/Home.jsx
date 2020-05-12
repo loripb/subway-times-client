@@ -93,7 +93,6 @@ const Home = (props) => {
 
           <p>Select a subway line to view stops.</p>
           <p>Starring a stop will save them to your account.</p>
-          <p>COMING SOON: 123, 456 lines. Ability to star stops from the search tab</p>
         </Segment>
         {
           renderContainer()
