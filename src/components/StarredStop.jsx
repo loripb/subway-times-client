@@ -14,17 +14,18 @@ class StarredStop extends Component {
   }
 
   componentDidMount(){
+    // gets the correct starred stop and saves it to state
     fetch("https://subway-times-api.herokuapp.com/starred_stops")
     .then(r => r.json())
     .then(starredStops => {
-      let starredObj = starredStops.find(starredStop => starredStop.stop.id === this.props.stop.id)
-      if (starredObj.user.username === this.props.user.username) {
-        this.setState({starredStop: starredObj})
-      }
+      let starredObjs = starredStops.filter(starredStop => starredStop.stop.id === this.props.stop.id)
+      // if the user matches with current, save to state
+      starredObjs.map(starredObj => starredObj.user.username === this.props.user.username ? this.setState({starredStop: starredObj}) : null)
     })
   }
 
   handleClick = () => {
+    // fetches arrivalTimes
     fetch(`https://subway-times-api.herokuapp.com/stops/${this.props.stop.id}`)
     .then(r => r.json())
     .then(data => {
@@ -75,6 +76,7 @@ class StarredStop extends Component {
   }
 
   deleteStarredStop = (starredStop) => {
+    // removes starred stop from user, then deletes from backend
     let updatedStops = this.props.user.user_stops.filter(stop => stop.id !== this.props.stop.id)
     let updatedStarredStops = this.props.user.starred_stops.filter(stop => stop.id !== starredStop.id)
 
@@ -109,6 +111,7 @@ class StarredStop extends Component {
 
 
   render(){
+    console.log(this.state);
     return(
       <>
         {
