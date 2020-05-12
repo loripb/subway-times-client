@@ -29,7 +29,6 @@ class LineStop extends Component {
     this.props.stop.map(stopObj => {
 
       let arrivalTimes = trainObjs.filter(obj => obj.stop_id.includes(stopObj.stop_id + this.props.direction))
-      console.log(arrivalTimes, stopObj);
       let trainArrivalObjs = arrivalTimes.map(obj => {
         let trainTime = new Date( parseInt(obj.arrival.time) *1000);
         let timeNow = new Date()
@@ -54,13 +53,12 @@ class LineStop extends Component {
 
       // if there are arrivals, set them in state
       if (arrivals.length > 0){
-        console.log(stopObj.id);
         this.setState({
           renderStopInfo: !this.state.renderStopInfo,
           arrivals: arrivals,
           stop: stopObj
         })
-        console.log('ran setstate');
+
       }
     })
 
@@ -96,10 +94,8 @@ class LineStop extends Component {
     })
     .then(r => r.json())
     .then(data => {
-      console.log(data, "from stopcard");
       // puts the exact train in the stopObj
       let updatedStops = [...this.props.user.user_stops, this.state.stop]
-      console.log(updatedStops);
       let updatedStarred = [...this.props.user.starred_stops, {id: data.starred_stop.id}]
       let updatedUser = {
         ...this.props.user,
@@ -124,7 +120,6 @@ class LineStop extends Component {
   }
   render() {
     // add is due function
-    console.log(this.state, "FROM RENDER");
     return (
       <List.Item>
         <Popup

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { List, Icon } from 'semantic-ui-react';
+import { List } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import SingleStopLine from './SingleStopLine';

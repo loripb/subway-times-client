@@ -105,10 +105,8 @@ class StopCard extends Component {
     })
     .then(r => r.json())
     .then(data => {
-      console.log(data, "from stopcard");
       // puts the exact train in the stopObj
       let updatedStops = [...this.props.user.user_stops, this.state.stopObj]
-      console.log(updatedStops);
       let updatedStarred = [...this.props.user.starred_stops, {id: data.starred_stop.id}]
       let updatedUser = {
         ...this.props.user,
@@ -137,7 +135,6 @@ class StopCard extends Component {
   }
 
   render(){
-    console.log(this.state.arrivals, this.props.stop.name, this.state.stopObj.stop_id + this.props.direction);
     return(
       <>
         {

@@ -111,7 +111,6 @@ class StarredStop extends Component {
 
 
   render(){
-    console.log(this.state);
     return(
       <>
         {
