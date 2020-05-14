@@ -25,7 +25,7 @@
     }
   ],
   "start_url": "/subway-times-client/public/index.html",
-  "display": "standalone",
+  "display": "fullscreen",
   "theme_color": "#0F2027",
   "background_color": "#0F2027"
 }
