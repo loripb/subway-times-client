@@ -68,9 +68,14 @@ class App extends React.Component {
     })
     .then(r => r.json())
     .then((resp) => {
-      localStorage.token = resp.token
-      this.props.setUserInformation(resp)
-      this.props.history.push("/")
+      if (resp.error) {
+        this.setState({error: resp.error})
+        this.props.history.push("/login")
+      } else {
+        localStorage.token = resp.token
+        this.props.setUserInformation(resp)
+        this.props.history.push("/")
+      }
     })
     .catch(alert)
 

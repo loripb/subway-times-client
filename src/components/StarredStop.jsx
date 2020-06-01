@@ -30,42 +30,45 @@ class StarredStop extends Component {
 
   handleClick = () => {
     // fetches arrivalTimes
+    console.log(this.state.starredStop);
     NetworkService.getOneStarredStop(this.state.starredStop.id)
     .then((arrivalTimes) => {
-      
-      console.log(arrivalTimes);
-      // this.setState({
-      //   arrivals: arrivalTimes
+        let arrivals = []
+
+        this.props.direction === "N"
+        ?
+        arrivals = arrivalTimes.feed.uptown.map(time => this.getArrivalTime(time))
+        :
+        arrivals = arrivalTimes.feed.downtown.map(time => this.getArrivalTime(time))
+
+        arrivals = arrivals.filter(time => time >= 0)
+
+        this.setState({
+          renderStopInfo: !this.state.renderStopInfo,
+          arrivals: arrivals.sort()
+        })
+
       })
   }
-    // fetch("https://subway-times-api.herokuapp.com/starred_stops/starredObj")
-    // .then(r => jso)
-    //
-    //       // setting hours and mins
-    //       let trainHour = trainTime.getHours() > 12? trainTime.getHours() - 12 : trainTime.getHours()
-    //       let trainMin = trainTime.getMinutes()
-    //       let currentHour = timeNow.getHours() > 12? timeNow.getHours() - 12 : timeNow.getHours()
-    //       let currentMin = timeNow.getMinutes()
-    //
-    //       // if trainHour is > current hour add 60 mins to trainMin
-    //       if (trainHour > currentHour) {
-    //         trainMin += 60
-    //       }
-    //
-    //       // take hour and min of train time and subtract each from the current time, if result is negative return 0
-    //       return trainMin - currentMin
-    //     })
-    //
-    //     // if train is due or has past remove
-    //     const arrivals = trainArrivalObjs.filter(time => time >= 0)
-    //
-    //     this.setState({
-    //       renderStopInfo: !this.state.renderStopInfo,
-    //       arrivals: arrivals
-    //     })
-    //   })
-    // })
-  // }
+
+  getArrivalTime = (epochTime) => {
+    const timeNow = new Date();
+    // setting hours and mins
+    let arrivalTime = new Date( parseInt(epochTime.time) *1000);
+      let trainHour = arrivalTime.getHours() > 12? arrivalTime.getHours() - 12 : arrivalTime.getHours()
+      let trainMin = arrivalTime.getMinutes()
+      let currentHour = timeNow.getHours() > 12? timeNow.getHours() - 12 : timeNow.getHours()
+      let currentMin = timeNow.getMinutes()
+
+      // if trainHour is > current hour add 60 mins to trainMin
+      if (trainHour > currentHour) {
+        trainMin += 60
+      }
+
+      // take hour and min of train time and subtract each from the current time, if result is negative return 0
+      return trainMin - currentMin
+
+  }
 
   deleteStarredStop = (starredStop) => {
     // removes starred stop from user, then deletes from backend
@@ -134,7 +137,7 @@ class StarredStop extends Component {
 const mapStateToProps = (reduxState) => {
   return {
     user: reduxState.user,
-    direction: reduxState.direction,
+    direction: reduxState.direction.direction,
     lines: reduxState.lines.all
   }
 }
