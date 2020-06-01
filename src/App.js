@@ -68,6 +68,7 @@ class App extends React.Component {
       this.props.setUserInformation(resp)
       this.props.history.push("/")
     })
+    .catch(alert)
 
 
   }
@@ -94,6 +95,7 @@ class App extends React.Component {
       }
 
     })
+    .catch(alert)
 
   }
 

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { editUserInformation } from '../Redux/actions'
 import { List, Icon } from 'semantic-ui-react';
+import NetworkService from '../services/NetworkService'
 
 class StarredStop extends Component {
 
@@ -13,10 +14,9 @@ class StarredStop extends Component {
     starredStop: undefined
   }
 
-  componentDidMount(){
+  _getStarredStops(){
     // gets the correct starred stop and saves it to state
-    fetch("https://subway-times-api.herokuapp.com/starred_stops")
-    .then(r => r.json())
+    NetworkService.getStarredStops()
     .then(starredStops => {
       let starredObjs = starredStops.filter(starredStop => starredStop.stop.id === this.props.stop.id)
       // if the user matches with current, save to state
@@ -24,56 +24,48 @@ class StarredStop extends Component {
     })
   }
 
+  componentDidMount(){
+    this._getStarredStops()
+  }
+
   handleClick = () => {
     // fetches arrivalTimes
-    fetch(`https://subway-times-api.herokuapp.com/stops/${this.props.stop.id}`)
-    .then(r => r.json())
-    .then(data => {
-      // fetch here
-      fetch(`https://subway-times-api.herokuapp.com/lines/${data.lines[0].id}`)
-      .then(r => r.json())
-      .then((line) => {
-        // diggs through feed to find the arrays with the arrival times
-        let feed = line.feed.filter( obj => Object.keys(obj).includes("trip_update"))
-        let includesStopTimeUpdate = feed.filter(obj => Object.keys(obj.trip_update).includes("stop_time_update"))
-        let stopTimeUpdateArrays = includesStopTimeUpdate.map(obj => obj.trip_update.stop_time_update)
-        let stopTimeArrays = stopTimeUpdateArrays.map(obj => obj.map(obj2 => obj2))
-
-        let trainObjs = []
-
-        // adds the objects with train arrival times and stop ids to "state"
-        stopTimeArrays.map(obj => obj.map(obj2 => trainObjs.push(obj2)))
-
-        let arrivalTimes = trainObjs.filter(obj => obj.stop_id.includes(this.props.stop.stop_id + this.props.direction.direction))
-        let trainArrivalObjs = arrivalTimes.map(obj => {
-          let trainTime = new Date( parseInt(obj.arrival.time) *1000);
-          let timeNow = new Date()
-
-          // setting hours and mins
-          let trainHour = trainTime.getHours() > 12? trainTime.getHours() - 12 : trainTime.getHours()
-          let trainMin = trainTime.getMinutes()
-          let currentHour = timeNow.getHours() > 12? timeNow.getHours() - 12 : timeNow.getHours()
-          let currentMin = timeNow.getMinutes()
-
-          // if trainHour is > current hour add 60 mins to trainMin
-          if (trainHour > currentHour) {
-            trainMin += 60
-          }
-
-          // take hour and min of train time and subtract each from the current time, if result is negative return 0
-          return trainMin - currentMin
-        })
-
-        // if train is due or has past remove
-        const arrivals = trainArrivalObjs.filter(time => time >= 0)
-
-        this.setState({
-          renderStopInfo: !this.state.renderStopInfo,
-          arrivals: arrivals
-        })
+    NetworkService.getOneStarredStop(this.state.starredStop.id)
+    .then((arrivalTimes) => {
+      
+      console.log(arrivalTimes);
+      // this.setState({
+      //   arrivals: arrivalTimes
       })
-    })
   }
+    // fetch("https://subway-times-api.herokuapp.com/starred_stops/starredObj")
+    // .then(r => jso)
+    //
+    //       // setting hours and mins
+    //       let trainHour = trainTime.getHours() > 12? trainTime.getHours() - 12 : trainTime.getHours()
+    //       let trainMin = trainTime.getMinutes()
+    //       let currentHour = timeNow.getHours() > 12? timeNow.getHours() - 12 : timeNow.getHours()
+    //       let currentMin = timeNow.getMinutes()
+    //
+    //       // if trainHour is > current hour add 60 mins to trainMin
+    //       if (trainHour > currentHour) {
+    //         trainMin += 60
+    //       }
+    //
+    //       // take hour and min of train time and subtract each from the current time, if result is negative return 0
+    //       return trainMin - currentMin
+    //     })
+    //
+    //     // if train is due or has past remove
+    //     const arrivals = trainArrivalObjs.filter(time => time >= 0)
+    //
+    //     this.setState({
+    //       renderStopInfo: !this.state.renderStopInfo,
+    //       arrivals: arrivals
+    //     })
+    //   })
+    // })
+  // }
 
   deleteStarredStop = (starredStop) => {
     // removes starred stop from user, then deletes from backend
