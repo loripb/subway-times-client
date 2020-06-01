@@ -14,6 +14,10 @@ import { setUserInformation, setAlllines, setAllStops } from './Redux/actions'
 
 class App extends React.Component {
 
+  state = {
+    error: undefined
+  }
+
   componentDidMount() {
     if (localStorage.token) {
       fetch("https://subway-times-api.herokuapp.com/persist", {
@@ -45,9 +49,9 @@ class App extends React.Component {
       return <h2>Already logged in as {this.props.username}</h2>
     }
     if(routerProps.location.pathname === "/login"){
-      return <Form formName="Login" handleSubmit={this.handleLoginSubmit} error={ undefined }/>
+      return <Form formName="Login" handleSubmit={this.handleLoginSubmit} error={ this.state.error }/>
     } else if (routerProps.location.pathname === "/signup") {
-      return <Form formName="Sign up" handleSubmit={this.handleRegisterSubmit} error={ undefined }/>
+      return <Form formName="Sign up" handleSubmit={this.handleRegisterSubmit} error={ this.state.error }/>
     }
   }
 
@@ -87,7 +91,8 @@ class App extends React.Component {
     .then(r => r.json())
     .then((resp) => {
       if (resp.error) {
-        return resp.error
+        this.setState({error: resp.error})
+        this.props.history.push("/signup")
       } else {
         localStorage.token = resp.token
         this.props.setUserInformation(resp)

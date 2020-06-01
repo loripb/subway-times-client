@@ -5,7 +5,10 @@ class FormContainer extends Component {
 
   state = {
     username: "",
-    password: ""
+    password: "",
+    confirmation: "",
+    confirationError: false,
+    msg: undefined
   }
 
   handleErrors = (submitResponse) => {
@@ -14,10 +17,28 @@ class FormContainer extends Component {
 
   handleSubmitButton = (e) => {
     e.preventDefault()
-    this.props.handleSubmit(this.state)
+
+    if (this.props.error) {
+      let errorMessage = ' '
+      this.props.error.map(errorMsg => errorMessage += errorMsg)
+      this.setState({msg: errorMessage})
+    }
+
+    const user = {username: this.state.username, password: this.state.password}
+
+    if (this.props.formName === "Sign up"){
+      this.state.password === this.state.confirmation ? this.props.handleSubmit(user) : this.setState({msg: "Passwords do not match.", confirationError: true})
+      // console.log("will compaare");
+    } else {
+      this.props.handleSubmit(user)
+      // console.log("will not compare");
+    }
   }
 
   handleChange = (e) => {
+    // removes any error messages
+    this.setState({confirationError: false, msg: undefined})
+
     this.setState({
       [e.target.placeholder]: e.target.value
     })
@@ -32,21 +53,60 @@ class FormContainer extends Component {
             </Header>
             <Form size='large' onSubmit={ this.handleSubmitButton }>
               <Segment stacked>
-                <Form.Input onChange={ this.handleChange }fluid icon='user' iconPosition='left' placeholder='username' />
-                <Form.Input
-                  fluid
-                  onChange={ this.handleChange }
-                  icon='lock'
-                  iconPosition='left'
-                  placeholder='password'
-                  type='password'
-                />
+                {
+                  this.props.formName === "Login"
+                  ?
+                    <>
+                      <Form.Input onChange={ this.handleChange }fluid icon='user' iconPosition='left' placeholder='username' />
+                      <Form.Input
+                        fluid
+                        onChange={ this.handleChange }
+                        icon='lock'
+                        iconPosition='left'
+                        placeholder='password'
+                        type='password'
+                        />
+                    </>
+                  :
+                  <>
+                    <Form.Input onChange={ this.handleChange }fluid icon='user' iconPosition='left' placeholder='username' />
+                    <Form.Input
+                      fluid
+                      onChange={ this.handleChange }
+                      icon='lock'
+                      iconPosition='left'
+                      placeholder='password'
+                      type='password'
+                      />
+                    <Form.Input
+                      fluid
+                      onChange={ this.handleChange }
+                      icon='lock'
+                      iconPosition='left'
+                      label='Re-enter password'
+                      placeholder='confirmation'
+                      type='password'
+                      error={this.state.confirationError}
+                      />
+                  </>
+                }
 
               <Button color='blue' fluid size='large'>
                   { this.props.formName }
                 </Button>
               </Segment>
             </Form>
+
+            {
+              this.state.msg
+              ?
+              <Message>
+                <p style={{color: 'red'}}>{this.state.msg}</p>
+              </Message>
+              :
+              null
+            }
+
             <Message>
               {
                 this.props.formName === "Login"
