@@ -10,10 +10,19 @@ class NetworkService {
     return RequestService.getRequest(url)
   }
 
-  getOneStarredStop(stop_id){
-    const url = `${BASE_URL}/starred_stops/${stop_id}`
+  getOneStarredStop(stopId){
+    const url = `${BASE_URL}/starred_stops/${stopId}`
     return RequestService.getRequest(url)
   }
+
+  getStopArrivals(lineId, stopId){
+    const url = `${BASE_URL}/find?line_id=${lineId}&stop_id=${stopId}`
+    return RequestService.getRequest(url)
+  }
+
+  // Auth
+
+
 
   // getArticles(){
   //   var url = `${BASE_URL}/search/v2/articlesearch.json${API_KEY}`

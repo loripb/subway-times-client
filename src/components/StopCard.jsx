@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { editUserInformation } from '../Redux/actions'
+import { editUserInformation } from '../Redux/actions';
 import { List, Icon, Popup } from 'semantic-ui-react';
+import NetworkService from '../services/NetworkService';
+
 
 const timeoutLength = 2500
 
@@ -10,7 +12,6 @@ class StopCard extends Component {
 
   state = {
     foundUser: undefined,
-    stopObj: [],
     arrivals: [],
     renderStopInfo: false,
     isOpen: false
@@ -39,53 +40,46 @@ class StopCard extends Component {
 
   }
 
+  getArrivalTime = (epochTime) => {
+    const timeNow = new Date();
+    // setting hours and mins
+    let arrivalTime = new Date( parseInt(epochTime.time) *1000);
+      let trainHour = arrivalTime.getHours() > 12? arrivalTime.getHours() - 12 : arrivalTime.getHours()
+      let trainMin = arrivalTime.getMinutes()
+      let currentHour = timeNow.getHours() > 12? timeNow.getHours() - 12 : timeNow.getHours()
+      let currentMin = timeNow.getMinutes()
+
+      // if trainHour is > current hour add 60 mins to trainMin
+      // if (trainHour > currentHour) {
+      //   trainMin += 60
+      // }
+
+      // take hour and min of train time and subtract each from the current time, if result is negative return 0
+      return trainMin - currentMin
+
+  }
+
   handleClick = () => {
     // fetch here
-    fetch(`https://subway-times-api.herokuapp.com/lines/${this.props.line.id}`)
-    .then(r => r.json())
-    .then((line) => {
+    console.log(this.state.starredStop);
+    NetworkService.getStopArrivals(this.props.line.id, this.props.stop.id)
+    .then((arrivalTimes) => {
+        let arrivals = []
 
-      // diggs through feed to find the arrays with the arrival times
-      let feed = line.feed.filter( obj => Object.keys(obj).includes("trip_update"))
-      let includesStopTimeUpdate = feed.filter(obj => Object.keys(obj.trip_update).includes("stop_time_update"))
-      let stopTimeUpdateArrays = includesStopTimeUpdate.map(obj => obj.trip_update.stop_time_update)
-      let stopTimeArrays = stopTimeUpdateArrays.map(obj => obj.map(obj2 => obj2))
+        this.props.direction === "N"
+        ?
+        arrivals = arrivalTimes.uptown.map(time => this.getArrivalTime(time))
+        :
+        arrivals = arrivalTimes.downtown.map(time => this.getArrivalTime(time))
 
-      let trainObjs = []
+        arrivals = arrivals.filter(time => time >= 0)
 
-      // adds the objects with train arrival times and stop ids to "state"
-      stopTimeArrays.map(obj => obj.map(obj2 => trainObjs.push(obj2)))
+        this.setState({
+          renderStopInfo: !this.state.renderStopInfo,
+          arrivals: arrivals.sort()
+        })
 
-      let arrivalTimes = trainObjs.filter(obj => obj.stop_id.includes(this.state.stopObj.stop_id + this.props.direction))
-
-      // convert each train arrival from epoch, then get the remaining time
-      let trainArrivalObjs = arrivalTimes.map(obj => {
-        let trainTime = new Date( parseInt(obj.arrival.time) *1000);
-        let timeNow = new Date()
-
-        // setting hours and mins
-        let trainHour = trainTime.getHours() > 12? trainTime.getHours() - 12 : trainTime.getHours()
-        let trainMin = trainTime.getMinutes()
-        let currentHour = timeNow.getHours() > 12? timeNow.getHours() - 12 : timeNow.getHours()
-        let currentMin = timeNow.getMinutes()
-
-        // if trainHour is > current hour add 60 mins to trainMin
-        if (trainHour > currentHour) {
-          trainMin += 60
-        }
-
-        // take hour and min of train time and subtract each from the current time, if result is negative return 0
-        return trainMin - currentMin
       })
-
-      // if train is due or has past remove
-      const arrivals = trainArrivalObjs.filter(time => time >= 0)
-
-      this.setState({
-        renderStopInfo: !this.state.renderStopInfo,
-        arrivals: arrivals
-      })
-    })
   }
 
   addOneStarStop = (usersArray) => {
@@ -135,6 +129,8 @@ class StopCard extends Component {
   }
 
   render(){
+    console.log(this.props, "PROPS");
+    console.log(this.state, "STATE");
     return(
       <>
         {
@@ -151,7 +147,7 @@ class StopCard extends Component {
               position='top center'
             />
             <List.Content onClick={ this.handleClick } >
-              <List.List className='font'>{ this.state.stopObj.name }</List.List>
+              <List.List className='font'>{ this.props.stop.name }</List.List>
               <List.Description className='font'>
                 <h5 className='font'>{ this.state.arrivals.length > 0 ? `${this.isDue(this.state.arrivals[0])}, ${this.isDue(this.state.arrivals[1])}, ${this.isDue(this.state.arrivals[2])}` : `There are no arrivals for the ${this.props.line.name} line at this station.` }</h5>
               </List.Description>
@@ -169,7 +165,7 @@ class StopCard extends Component {
               position='top center'
             />
             <List.Content onClick={ this.handleClick }>
-              <List.List className='font'>{ this.state.stopObj.name }</List.List>
+              <List.List className='font'>{ this.props.stop.name }</List.List>
             </List.Content>
           </List.Item>
         }
