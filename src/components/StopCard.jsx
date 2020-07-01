@@ -38,6 +38,31 @@ class StopCard extends Component {
       stopObj: data.stop
     }))
 
+
+    // fetch here
+    NetworkService.getStopArrivals(this.props.line.id, this.props.stop.id)
+    .then((arrivalTimes) => {
+
+        let arrivals = []
+
+        // if arrivaltimes is not empty run this code
+        // else return nothing to render nothing
+
+        this.props.direction === "N"
+        ?
+        arrivals = arrivalTimes.uptown.map(time => this.getArrivalTime(time))
+        :
+        arrivals = arrivalTimes.downtown.map(time => this.getArrivalTime(time))
+
+        arrivals = arrivals.filter(time => time >= 0)
+
+        this.setState({
+          arrivals: arrivals.sort()
+        })
+
+      })
+
+
   }
 
   getArrivalTime = (epochTime) => {
@@ -60,33 +85,16 @@ class StopCard extends Component {
   }
 
   handleClick = () => {
-    // fetch here
-    console.log(this.state.starredStop);
-    NetworkService.getStopArrivals(this.props.line.id, this.props.stop.id)
-    .then((arrivalTimes) => {
-
-        let arrivals = []
-
-        this.props.direction === "N"
-        ?
-        arrivals = arrivalTimes.uptown.map(time => this.getArrivalTime(time))
-        :
-        arrivals = arrivalTimes.downtown.map(time => this.getArrivalTime(time))
-
-        arrivals = arrivals.filter(time => time >= 0)
-
-        console.log(arrivals.sort(), "ARRIVALS STOP CARD");
-        this.setState({
-          renderStopInfo: !this.state.renderStopInfo,
-          arrivals: arrivals.sort()
-        })
-
-      })
+    this.setState({
+      renderStopInfo: !this.state.renderStopInfo,
+     })
   }
 
   addOneStarStop = (usersArray) => {
     let user = usersArray.find(userObj => userObj.username === this.props.user.username)
 
+    console.log(user)
+	  
     fetch('https://subway-times-api.herokuapp.com/starred_stops', {
       method: "POST",
       headers: {
@@ -95,12 +103,13 @@ class StopCard extends Component {
       },
       body: JSON.stringify({
         user_id: user.id,
-        stop_id: this.state.stopObj.id,
+        stop_id: this.props.stop.id,
         line_id: this.props.line.id
       })
     })
     .then(r => r.json())
     .then(data => {
+      console.log(data)
       // puts the exact train in the stopObj
       let updatedStops = [...this.props.user.user_stops, this.state.stopObj]
       let updatedStarred = [...this.props.user.starred_stops, {id: data.starred_stop.id}]

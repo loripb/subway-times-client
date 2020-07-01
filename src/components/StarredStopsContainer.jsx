@@ -9,6 +9,7 @@ const StarredStopsContainer = (props) => {
 
   const renderStops = () => {
     return props.user.user_stops.map(stopObj => {
+      debugger
       return <StarredStop
                 key={ stopObj.id }
                 stop={ stopObj }
