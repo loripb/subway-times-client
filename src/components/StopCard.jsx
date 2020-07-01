@@ -48,6 +48,7 @@ class StopCard extends Component {
         // if arrivaltimes is not empty run this code
         // else return nothing to render nothing
 
+
         this.props.direction === "N"
         ?
         arrivals = arrivalTimes.uptown.map(time => this.getArrivalTime(time))
@@ -93,8 +94,6 @@ class StopCard extends Component {
   addOneStarStop = (usersArray) => {
     let user = usersArray.find(userObj => userObj.username === this.props.user.username)
 
-    console.log(user)
-	  
     fetch('https://subway-times-api.herokuapp.com/starred_stops', {
       method: "POST",
       headers: {
@@ -109,9 +108,8 @@ class StopCard extends Component {
     })
     .then(r => r.json())
     .then(data => {
-      console.log(data)
       // puts the exact train in the stopObj
-      let updatedStops = [...this.props.user.user_stops, this.state.stopObj]
+      let updatedStops = [...this.props.user.user_stops, this.props.stop]
       let updatedStarred = [...this.props.user.starred_stops, {id: data.starred_stop.id}]
       let updatedUser = {
         ...this.props.user,
@@ -140,6 +138,7 @@ class StopCard extends Component {
   }
 
   render(){
+    console.log(this.props.user)
     return(
       <>
         {
