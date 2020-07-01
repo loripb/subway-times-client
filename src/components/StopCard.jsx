@@ -38,16 +38,42 @@ class StopCard extends Component {
       stopObj: data.stop
     }))
 
+
+    // fetch here
+    NetworkService.getStopArrivals(this.props.line.id, this.props.stop.id)
+    .then((arrivalTimes) => {
+
+        let arrivals = []
+
+        // if arrivaltimes is not empty run this code
+        // else return nothing to render nothing
+
+
+        this.props.direction === "N"
+        ?
+        arrivals = arrivalTimes.uptown.map(time => this.getArrivalTime(time))
+        :
+        arrivals = arrivalTimes.downtown.map(time => this.getArrivalTime(time))
+
+        arrivals = arrivals.filter(time => time >= 0)
+
+        this.setState({
+          arrivals: arrivals.sort()
+        })
+
+      })
+
+
   }
 
   getArrivalTime = (epochTime) => {
     const timeNow = new Date();
     // setting hours and mins
     let arrivalTime = new Date( parseInt(epochTime.time) *1000);
-      let trainHour = arrivalTime.getHours() > 12? arrivalTime.getHours() - 12 : arrivalTime.getHours()
-      let trainMin = arrivalTime.getMinutes()
-      let currentHour = timeNow.getHours() > 12? timeNow.getHours() - 12 : timeNow.getHours()
-      let currentMin = timeNow.getMinutes()
+    let trainHour = arrivalTime.getHours() > 12? arrivalTime.getHours() - 12 : arrivalTime.getHours()
+    let trainMin = arrivalTime.getMinutes()
+    let currentHour = timeNow.getHours() > 12? timeNow.getHours() - 12 : timeNow.getHours()
+    let currentMin = timeNow.getMinutes()
 
       // if trainHour is > current hour add 60 mins to trainMin
       // if (trainHour > currentHour) {
@@ -60,26 +86,9 @@ class StopCard extends Component {
   }
 
   handleClick = () => {
-    // fetch here
-    console.log(this.state.starredStop);
-    NetworkService.getStopArrivals(this.props.line.id, this.props.stop.id)
-    .then((arrivalTimes) => {
-        let arrivals = []
-
-        this.props.direction === "N"
-        ?
-        arrivals = arrivalTimes.uptown.map(time => this.getArrivalTime(time))
-        :
-        arrivals = arrivalTimes.downtown.map(time => this.getArrivalTime(time))
-
-        arrivals = arrivals.filter(time => time >= 0)
-
-        this.setState({
-          renderStopInfo: !this.state.renderStopInfo,
-          arrivals: arrivals.sort()
-        })
-
-      })
+    this.setState({
+      renderStopInfo: !this.state.renderStopInfo,
+     })
   }
 
   addOneStarStop = (usersArray) => {
@@ -93,14 +102,14 @@ class StopCard extends Component {
       },
       body: JSON.stringify({
         user_id: user.id,
-        stop_id: this.state.stopObj.id,
+        stop_id: this.props.stop.id,
         line_id: this.props.line.id
       })
     })
     .then(r => r.json())
     .then(data => {
       // puts the exact train in the stopObj
-      let updatedStops = [...this.props.user.user_stops, this.state.stopObj]
+      let updatedStops = [...this.props.user.user_stops, this.props.stop]
       let updatedStarred = [...this.props.user.starred_stops, {id: data.starred_stop.id}]
       let updatedUser = {
         ...this.props.user,
@@ -129,8 +138,7 @@ class StopCard extends Component {
   }
 
   render(){
-    console.log(this.props, "PROPS");
-    console.log(this.state, "STATE");
+    console.log(this.props.user)
     return(
       <>
         {
