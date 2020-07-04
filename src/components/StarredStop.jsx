@@ -30,7 +30,6 @@ class StarredStop extends Component {
 
   handleClick = () => {
     // fetches arrivalTimes
-    console.log(this.state.starredStop);
     NetworkService.getOneStarredStop(this.state.starredStop.id)
     .then((arrivalTimes) => {
         let arrivals = []
@@ -55,9 +54,7 @@ class StarredStop extends Component {
     const timeNow = new Date();
     // setting hours and mins
     let arrivalTime = new Date( parseInt(epochTime.time) *1000);
-      let trainHour = arrivalTime.getHours() > 12? arrivalTime.getHours() - 12 : arrivalTime.getHours()
       let trainMin = arrivalTime.getMinutes()
-      let currentHour = timeNow.getHours() > 12? timeNow.getHours() - 12 : timeNow.getHours()
       let currentMin = timeNow.getMinutes()
 
       // take hour and min of train time and subtract each from the current time, if result is negative return 0
