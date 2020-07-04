@@ -34,15 +34,8 @@ class LineStop extends Component {
         let timeNow = new Date()
 
         // setting hours and mins
-        let trainHour = trainTime.getHours() > 12? trainTime.getHours() - 12 : trainTime.getHours()
         let trainMin = trainTime.getMinutes()
-        let currentHour = timeNow.getHours() > 12? timeNow.getHours() - 12 : timeNow.getHours()
         let currentMin = timeNow.getMinutes()
-
-        // if trainHour is > current hour add 60 mins to trainMin
-        if (trainHour > currentHour) {
-          trainMin += 60
-        }
 
         // take hour and min of train time and subtract each from the current time, if result is negative return 0
         return trainMin - currentMin

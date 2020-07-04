@@ -1,7 +1,7 @@
 {
   "short_name": "Subway Times",
   "name": "Subway Times",
-  "description": "A real-time subway arrival time tracker Progressive Web App"
+  "description": "A real-time subway arrival time tracker Progressive Web App",
   "icons": [
     {
       "src": "favicon.ico.png",

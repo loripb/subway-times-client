@@ -20,8 +20,8 @@ class SingleStop extends Component {
       .then(r => r.json())
       .then(data => {
         // grab the line ids from promise);
-        data.lines.map(line => {
-          this.setState({
+        return data.lines.map(line => {
+            return this.setState({
             lines: [...this.state.lines,line]
           })
         })
